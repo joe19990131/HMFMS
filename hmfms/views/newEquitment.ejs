@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/hmfms/public/stylesheets/newEquitment.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/kendo/css/kendo.common-material.min.css">
+    <link rel="stylesheet" href="/kendo/css/kendo.material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="/kendo/js/kendo.all.min.js"></script>
+    <title>HMFMSystem</title>
+  </head>
+  <body>
+
+    <img src = "/homeTitlePicture.jpg" id="homeTitlePicture">
+    <ul>
+        <li><a class="active" href="#home">HMFMSystem</a></li>
+        <li><a href="/">設備查詢</a></li>
+        <li><a href="/locationSelecter">地點查詢</a></li>
+        <li><a href="#newEquitment">新增設備</a></li>
+        <li><a href="/newLocation">新增地點</a></li>
+    </ul>
+    <h2 style="margin-left: 20px;">新增設備</h2>
+<div id="form-div">
+    <form action="create-equit">
+        <div class="form-group row" style="margin-bottom:20px">
+            <label class="col-md-3 control-label">型號</label>
+            <div class="col-md-9">
+                <select id="obj_type" class=" form-control"></select>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom:20px">
+            <label class="col-md-3 control-label">規格</label>
+            <div class="col-md-9">
+                <select id="type_spec" class=" form-control"></select>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom:20px">
+
+            <label class="col-md-3 control-label">磅數</label>
+            <div class="col-md-9">
+                <select id="pounds" class=" form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-bottom:20px">
+
+            <label class="col-md-3 control-label">放置地點</label>
+            <div class="col-md-9">
+                <select id="loc" class=" form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-bottom:20px">
+
+            <label class="col-md-3 control-label">製造日期</label>
+            <div class="col-md-9">
+                <input id="manufaDatePicker" value="10/10/2011" title="datepicker" style="width: 100%" />
+            </div>
+        </div>
+
+        <div class="form-group row" style="margin-bottom:20px">
+
+            <label class="col-md-3 control-label">使用期限</label>
+            <div class="col-md-9">
+                <input id="expDatePicker" value="10/10/2011" title="datepicker" style="width: 100%" />
+            </div>
+        </div>
+        <div class="form-btn">
+            <button class="btn btn-default">取消</button>
+            <button class="btn btn-danger">清除</button>
+            <button type="submit" value="submit" class="btn btn-primary">查詢</button>
+        </div>
+    </form>
+</div>
+</body>
+<script>
+$(document).ready(function(){
+    $("#expDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
+    $("#manufaDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
+});
+</script>
+</html>

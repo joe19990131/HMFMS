@@ -1,11 +1,155 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/hmfms/public/stylesheets/style.css' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="/hmfms/public/stylesheets/indexStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/kendo/css/kendo.common-material.min.css">
+    <link rel="stylesheet" href="/kendo/css/kendo.material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="/kendo/js/kendo.all.min.js"></script>
+    <title>HMFMSystem</title>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <img src = "/hmfms/public/images/homeTitlePicture.jpg" id="homeTitlePicture">
+    <ul style="margin-bottom: 1px;">
+        <li><a class="active" href="#home">HMFMSystem</a></li>
+        <li><a href="#index">設備查詢</a></li>
+        <li><a href="/locationSelecter">地點查詢</a></li>
+        <li><a href="/newEquitment">新增設備</a></li>
+        <li><a href="/newLocation">新增地點</a></li>
+    </ul>
+    <div id="mainSelect_fbtn" class="main_fbtn" style="border-bottom: 2px solid rgb(65, 65, 65); background-color: rgb(49, 47, 47);">
+      <h4 class="main_func_text">搜尋</h4>
+    </div>
+    <div id="select_area">
+      <div ></div>
+              <div class="main_fbtn" id="selectByEq_fbtn">
+                      <h5 class="main_func_text">使用設備資料搜尋</h5>
+              </div>
+              <div class ="hide_selecter" id="selectByEquit">
+                  <form action="" method="post">
+                      <div class="form-group row">
+                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">設備ID</label>
+                              <div class="col-md-9">
+                                      <input type="text" name="OID" class="form-control" id="oid_inputer">        
+                              </div>
+                      </div>
+      
+                      <div class="form-group row">
+                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">型號</label>
+                              <div class="col-md-9">
+                              <select id="ot_selecter" class=" form-control"></select>
+                              </div>
+                      </div>
+                      <div class="form-group row">
+                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">規格</label>
+                              <div class="col-md-9">
+                              <select id="ts_selecter" class=" form-control"></select>
+                              </div>
+                      </div>
+                      <div class="form-group row">
+                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">磅數</label>
+                              <div class="col-md-9">
+                              <select id="pound_selecter" class=" form-control"></select>
+                              </div>
+                      </div>
+                      <div class="form-group row">
+                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">狀態</label>
+                              <div class="col-md-9">
+                              <select id="cs_selecter" class=" form-control"></select>
+                              </div>
+                      </div>
+      
+                      <div class="form-group row">
+                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">使用期限</label>
+                              <div class="col-md-9">
+                                      <input id="expDatePicker" value="10/10/2011" title="datepicker" style="width: 100%" />
+                              </div>
+                      </div>
+                      <div class="quick-btn-area">
+                              <button id="locErrEQ_searcher" class="btn btn-default">異位設備查詢</button>
+                              <button id="lossEQ_searcher" class="btn btn-default">遺失設備查詢</button>
+                              <button id="discardEQ_searcher" class="btn btn-default">廢棄設備查詢</button>
+                      </div>
+      
+                      <div class="form-btn">
+                              <button class="btn btn-default">取消</button>
+                      <button class="btn btn-danger">清除</button>
+                      <button type="submit" value="submit" class="btn btn-primary" id="selectByEq_btn">查詢</button>
+                      </div>
+                      
+                  </form>
+                  <div style="height: 40px;width:100%;float: none;"></div>
+                  
+              </div>
+        
+              <div class="main_fbtn" id="selectByLoc_fbtn">
+                      <h5 class="main_func_text">使用放置地點搜尋</h5>
+              </div>
+              <div class ="hide_selecter" id="selectByLoc">
+                      <form action="" method="post">
+                              <div class="form-group row">
+                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點ID</label>
+                                      <div class="col-md-9">
+                                              <input type="text" name="LocID" class="form-control" id="locid_inputer">        
+                                      </div>
+                              </div>
+                              <div class="form-group row">
+                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">館別</label>
+                                      <div class="col-md-9">
+                                      <select id="bid_selecter" class=" form-control"></select>
+                                      </div>
+                              </div>
+                              <div class="form-group row">
+                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">樓層</label>
+                                      <div class="col-md-9">
+                                      <select id="bf_selecter" class=" form-control"></select>
+                                      </div>
+                              </div>
+                              <div class="form-group row">
+                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點</label>
+                                      <div class="col-md-9">
+                                      <select id="loc_selecter" class=" form-control"></select>
+                                      </div>
+                              </div>
+                              <div class="quick-btn-area">
+                                      <button id="locErrEQ_searcher" class="btn btn-default">廢棄地點查詢</button>
+                                      
+                              </div>
+                              <div class="form-btn">
+                                      <button class="btn btn-default">取消</button>
+                                      <button class="btn btn-danger">清除</button>
+                                      <button type="submit" value="submit" class="btn btn-primary" id="selectByLoc_btn">查詢</button>
+                              </div>
+                              
+                      </form>
+              </div>
+              <div style="background-color: rgb(49, 47, 47);height: 5px;"></div>
+      </div>       
+      <div id="data_grid" class="col-12"></div>     
   </body>
+<script>
+$(document).ready(function(){
+  $("#select_area").hide();
+  $(".hide_selecter").hide();
+
+  $("#selectByEq_fbtn").click(function(){
+    $("#selectByEquit").toggle(200);
+  });
+  $("#selectByLoc_fbtn").click(function(){
+    $("#selectByLoc").toggle(200);
+  });
+  $("#mainSelect_fbtn").click(function(){
+    $("#select_area").toggle(200);
+  });
+  $("#expDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
+  $("#oid_inputer").kendoMaskedTextBox(); 
+  $("#locid_inputer").kendoMaskedTextBox(); 
+
+})
+</script>
 </html>

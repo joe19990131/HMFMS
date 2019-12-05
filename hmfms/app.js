@@ -38,7 +38,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 app.listen(3000,function(){
-  console.log('http://127.0.0.1:3000/');
-}
+    console.log('http://127.0.0.1:3000/');
+  }
 )
 module.exports = app;

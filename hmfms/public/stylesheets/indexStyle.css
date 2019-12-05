@@ -1,0 +1,84 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+#homeTitlePicture{
+  margin-top:10px;
+  margin-left:1em;
+  margin-bottom: 1em;
+  width: 570px;
+  height: 120px;
+}
+ul {
+  list-style-type: none;
+  margin: 0px;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+  background-image: url("/hmfms/public/images/barStyle.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+  color: white;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+.active:hover{
+  color: white;
+}
+.main_fbtn{
+  height: 45px;
+  padding-left: 20px;
+  background-color:rgb(104, 104, 104);
+  width: 100%;
+}
+
+#mainSelect_fbtn:hover{
+background-color: #111;
+}
+.main_func_text{
+  color: #ffffff;
+  float: left;
+  margin-top: 14px;
+}
+.main_fbtn:hover{
+background-color: rgb(32, 32, 32);
+}
+.hide_selecter{
+margin-bottom: 5px;
+margin-top: 30px;
+margin-left: 4%;
+background-color: #ffffff;
+width: 33%;
+overflow: hidden;
+}
+
+.form-btn{
+float: right;
+margin: 10px;
+margin-right: 0px;
+}
+.quick-btn-area{
+float: right;
+float: none;
+}
+.form-group{
+margin-bottom: 30px;
+height: 30px;
+}

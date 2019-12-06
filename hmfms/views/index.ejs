@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="/kendo/css/kendo.common-material.min.css">
     <link rel="stylesheet" href="/kendo/css/kendo.material.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="/jquery/jquery-2.1.4.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <script src="/kendo/js/kendo.all.min.js"></script>
+    
     <title>HMFMSystem</title>
   </head>
   <body>
@@ -130,7 +131,7 @@
               </div>
               <div style="background-color: rgb(49, 47, 47);height: 5px;"></div>
       </div>       
-      <div id="data_grid" class="col-12"></div>     
+      <div id="data_grid" class="col-12" style="margin: 3%;margin-top: 1%;"></div>     
   </body>
 <script>
 $(document).ready(function(){
@@ -149,7 +150,27 @@ $(document).ready(function(){
   $("#expDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
   $("#oid_inputer").kendoMaskedTextBox(); 
   $("#locid_inputer").kendoMaskedTextBox(); 
+  var testData = new kendo.data.DataSource({
+          data:[{Id:1,Ot:"乾粉",Ts:"5",Cs:"正常",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-1"},
+                {Id:2,Ot:"乾粉",Ts:"5",Cs:"正常",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-2"}],
+                pageSize:20
+        });
 
+  $("#data_grid").kendoGrid({
+          dataSource:testData,
+          height:600,
+          columns:[
+                  {field:"Id",title:"設備編號",width:"8%"},
+                  {field:"Ot",title:"型號",width:"10%"},
+                  {field:"Ts",title:"規格",width:"10%"},
+                  {field:"Cs",title:"狀態",width:"15%"},
+                  {field:"MDate",title:"製造日期",width:"15%"},
+                  {field:"EDate",title:"有效期限",width:"15%"},
+                  {field:"Loc",title:"放置位置",width:"25%"}
+
+          ],
+          sortable:true
+  });
 })
 </script>
 </html>

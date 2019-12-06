@@ -14,9 +14,7 @@ body {
     width: 100%;
     padding: 0;
     overflow: hidden;
-    background-image: url("/hmfms/public/images/barStyle.png");
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #323331;
   }
   
   li {

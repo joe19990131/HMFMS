@@ -32,7 +32,7 @@
                       <h5 class="main_func_text">使用設備資料搜尋</h5>
               </div>
               <div class ="hide_selecter" id="selectByEquit">
-                  <form action="" method="post">
+                  <form action="/searchByEq" method="post">
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">設備ID</label>
                               <div class="col-md-9">
@@ -86,7 +86,7 @@
                       <h5 class="main_func_text">使用放置地點搜尋</h5>
               </div>
               <div class ="hide_selecter" id="selectByLoc">
-                      <form action="" method="post">
+                      <form action="/searchByLocx" method="post">
                               <div class="form-group row">
                                       <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點ID</label>
                                       <div class="col-md-9">
@@ -157,10 +157,12 @@ $(document).ready(function(){
                   {field:"Id",title:"設備編號",width:"8%"},
                   {field:"Ot",title:"型號",width:"10%"},
                   {field:"Ts",title:"規格",width:"10%"},
-                  {field:"Cs",title:"狀態",width:"15%"},
-                  {field:"MDate",title:"製造日期",width:"15%"},
-                  {field:"EDate",title:"有效期限",width:"15%"},
-                  {field:"Loc",title:"放置位置",width:"25%"}
+                  {field:"Cs",title:"狀態",width:"10%"},
+                  {field:"MDate",title:"製造日期",width:"10%"},
+                  {field:"EDate",title:"有效期限",width:"10%"},
+                  {field:"Loc",title:"放置位置",width:"20%"},
+                  { command: { text: "編輯",}, title: " ", width: "10%" },
+                  { command: { text: "報廢",}, title: " ", width: "10%" },
 
           ],
           sortable:true

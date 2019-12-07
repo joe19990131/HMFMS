@@ -78,6 +78,7 @@
     </form>
 </div>
 <hr id="underline" class="style-one" />
+<div id="data_grid" class="col-12" style="margin: 3%;margin-top: 1%;"></div>
 </body>
 <script>
 $(document).ready(function(){
@@ -87,7 +88,30 @@ $(document).ready(function(){
             $("#select").toggle(200);
             $("#underline").toggle(200);
     })
-    $("#locid_inputer").kendoMaskedTextBox(); 
+    $("#locid_inputer").kendoMaskedTextBox();
+    var testData = new kendo.data.DataSource({
+          data:[{LId:1,ln:"701",h:"總院",b:"本館",f:7},
+                {LId:2,ln:"701-1",h:"總院",b:"本館",f:7}],
+                pageSize:20
+        });
+
+  $("#data_grid").kendoGrid({
+          dataSource:testData,
+          height:600,
+          columns:[
+                  {field:"LId",title:"地點ID",width:"10%"},
+                  {field:"ln",title:"地點名稱",width:"15%"},
+                  {field:"h",title:"院區",width:"15%"},
+                  {field:"b",title:"館別",width:"15%"},
+                  {field:"f",title:"樓層",width:"15%"},
+                  { command: { text: "編輯",}, title: " ", width: "15%" },
+                  { command: { text: "刪除",}, title: " ", width: "15%" }
+                  
+                  
+
+          ],
+          sortable:true
+  }); 
 });
 </script>
 </html>

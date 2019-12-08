@@ -1,5 +1,17 @@
 var express = require('express');
+var mysql  = require ('mysql');
 var router = express.Router();
+
+//sql setting
+var conn = mysql.createConnection({
+  host : 'localhost',
+  prot : '3306',
+  user: 'root',
+  password : '123456',
+  database : 'hmfmsdatabase'
+});
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -21,7 +33,9 @@ router.post('/searchByEq',function(req, res, next) {
   var ts = req.body.TS;
   var cs = req.body.CS;
   var exp = req.body.EXP;
-  res.send(oid);
+  conn.connect();
+
+  res.send(oid+" "+ot+" "+ts+" "+cs+" "+exp);
 });
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {

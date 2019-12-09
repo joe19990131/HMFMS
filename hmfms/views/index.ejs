@@ -32,7 +32,7 @@
                       <h5 class="main_func_text">使用設備資料搜尋</h5>
               </div>
               <div class ="hide_selecter" id="selectByEquit">
-                  <form action="/searchByEq" method="post">
+               
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">設備ID</label>
                               <div class="col-md-9">
@@ -43,19 +43,43 @@
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">型號</label>
                               <div class="col-md-9">
-                              <select id="ot_selecter" name="OT" class=" form-control"></select>
+                              <select id="ot_selecter" name="OT" class=" form-control">
+                                      <option value="">請選擇</option>
+                                      <option value="乾粉">乾粉</option>
+                                      <option value="海龍">海龍</option>
+                                      <option value="CO2">CO2</option>
+                                      <option value="H2O">H2O</option>
+                                      <option value="泡沫">泡沫</option>
+                              </select>
                               </div>
                       </div>
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">規格</label>
                               <div class="col-md-9">
-                              <select id="ts_selecter" name="TS" class=" form-control"></select>
+                              <select id="ts_selecter" name="TS" class=" form-control">
+                                        <option value="">請選擇</option>
+                                      <option value="3">3型</option>
+                                      <option value="5">5型</option>
+                                      <option value="10">10型</option>
+                                      <option value="20">20型</option>
+                                      <option value="30">30型</option>
+                                      <option value="50">50型(輪架)</option>
+                                      <option value="100">100型(輪架)</option>
+                                      <option value="150">150型(輪架)</option>
+                                      <option value="200">200型(輪架)</option>
+                              </select>
                               </div>
                       </div>
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">狀態</label>
                               <div class="col-md-9">
-                              <select id="cs_selecter" name="CS" class=" form-control"></select>
+                              <select id="cs_selecter" name="CS" class=" form-control">
+                                        <option value="">請選擇</option>
+                                      <option value="正常">正常</option>
+                                      <option value="遺失">遺失</option>
+                                      <option value="異位">異位</option>
+                                      <option value="報廢">報廢</option>
+                              </select>
                               </div>
                       </div>
       
@@ -74,10 +98,10 @@
                       <div class="form-btn">
                               <button class="btn btn-default">取消</button>
                       <button class="btn btn-danger">清除</button>
-                      <button type="submit" value="submit" class="btn btn-primary" id="selectByEq_btn">查詢</button>
+                      <button type="submit"  class="btn btn-primary" id="selectByEq_btn">查詢</button>
                       </div>
                       
-                  </form>
+                 
                   <div style="height: 40px;width:100%;float: none;"></div>
                   
               </div>
@@ -86,7 +110,7 @@
                       <h5 class="main_func_text">使用放置地點搜尋</h5>
               </div>
               <div class ="hide_selecter" id="selectByLoc">
-                      <form action="/searchByLocx" method="post">
+                     
                               <div class="form-group row">
                                       <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點ID</label>
                                       <div class="col-md-9">
@@ -118,14 +142,15 @@
                               <div class="form-btn">
                                       <button class="btn btn-default">取消</button>
                                       <button class="btn btn-danger">清除</button>
-                                      <button type="submit" value="submit" class="btn btn-primary" id="selectByLoc_btn">查詢</button>
+                                      <button type="submit"  class="btn btn-primary" id="selectByLoc_btn">查詢</button>
                               </div>
                               
-                      </form>
+                      
               </div>
               <div style="background-color: rgb(49, 47, 47);height: 5px;"></div>
-      </div>       
-      <div id="data_grid" class="col-12" style="margin: 3%;margin-top: 1%;"></div>     
+      </div>
+      <h3 style="margin-left: 8%;margin-top: 2%;margin-bottom: 1%;">設備清單</h3>       
+      <div id="data_grid" class="col-12" style="margin: 8%;margin-top: 0%;"></div>     
   </body>
 <script>
 $(document).ready(function(){
@@ -145,10 +170,12 @@ $(document).ready(function(){
   $("#oid_inputer").kendoMaskedTextBox(); 
   $("#locid_inputer").kendoMaskedTextBox(); 
   var testData = new kendo.data.DataSource({
-          data:[{Id:1,Ot:"乾粉",Ts:"5",Cs:"正常",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-1"},
-                {Id:2,Ot:"乾粉",Ts:"5",Cs:"正常",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-2"}],
+          data:[{Id:1,Ot:"乾粉",Ts:"5",Cs:"正常",LCDate:"2019/01/22",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-1",MLoc:""},
+                {Id:2,Ot:"乾粉",Ts:"5",Cs:"正常",LCDate:"2019/01/22",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-2",MLoc:"705-2"}],
                 pageSize:20
         });
+
+
 
   $("#data_grid").kendoGrid({
           dataSource:testData,
@@ -158,15 +185,89 @@ $(document).ready(function(){
                   {field:"Ot",title:"型號",width:"10%"},
                   {field:"Ts",title:"規格",width:"10%"},
                   {field:"Cs",title:"狀態",width:"10%"},
+                  {field:"LCDate",title:"檢查日期",width:"10%"},
                   {field:"MDate",title:"製造日期",width:"10%"},
                   {field:"EDate",title:"有效期限",width:"10%"},
-                  {field:"Loc",title:"放置位置",width:"20%"},
-                  { command: { text: "編輯",}, title: " ", width: "10%" },
-                  { command: { text: "報廢",}, title: " ", width: "10%" },
+                  {field:"Loc",title:"放置位置",width:"15%"},
+                  {field:"MLoc",title:"異動位置",width:"15%"},
+                  { command: { text: "報廢",}, title: " ", width: "8%" },
 
           ],
-          sortable:true
+          sortable:true,
+          scrollable: true,
+                        sortable: true,
+                        pageable: {
+                            input: true,
+                            numeric: false
+                        },
   });
-})
+});
+
+//施工中
+/*
+var gridCount = 0;
+$("#selectByEq_btn").click(function(){
+        if (gridCount != 0) {
+            $("#book_grid").data('kendoGrid').destroy();
+        }
+        gridCount++;
+        var data = {
+                "OID" : $("#oid_inputer").val(),
+                "ObjectType" : $("#ot_selecter").val(),
+                "TypeSpec" : $("#ts_selecter").val(),
+                "checkStituation" : $("#cs_selecter").val(),
+                "EXPdate" : $("#expDatePicker").val()
+        };
+        $("#data_grid").kendoGrid({
+          dataSource:{
+                transport: {
+                    read: {
+                        method: "post",
+                        url: "/index/searchByEq",
+                        dataType: "json",
+                        data: data
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            OID: { type: "int" },
+                            ObjectType: { type: "string" },
+                            TypeSpec: { type: "string" },
+                            checkStituation: { type: "string" },
+                            CheckDate: { type: "string" },
+                            ManufatureDate: { type: "string" },
+                            EXPdate: { type: "string" },
+                            Location: { type: "string" },
+                            MigrateLoc: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 20,
+            },
+          height:600,
+          columns:[
+                  {field:"OID",title:"設備編號",width:"8%"},
+                  {field:"ObjectType",title:"型號",width:"10%"},
+                  {field:"TtpeSpec",title:"規格",width:"10%"},
+                  {field:"checkStituation",title:"狀態",width:"10%"},
+                  {field:"CheckDate",title:"檢查日期",width:"10%"},
+                  {field:"ManufatureDate",title:"製造日期",width:"10%"},
+                  {field:"EXPdate",title:"有效期限",width:"10%"},
+                  {field:"Location",title:"放置位置",width:"15%"},
+                  {field:"MigrateLoc",title:"異動位置",width:"15%"},
+                  { command: { text: "報廢",}, title: " ", width: "8%" },
+
+          ],
+          sortable:true,
+          scrollable: true,
+                        sortable: true,
+                        pageable: {
+                            input: true,
+                            numeric: false
+                        },
+  });
+});
+*/
 </script>
 </html>

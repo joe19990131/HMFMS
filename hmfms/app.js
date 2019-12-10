@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
-//var conn  = require ('./lib/db');
+var conn  = require ('./lib/db');
 
 var indexRouter = require('./routes/index');
 var locationSelecterRouter = require('./routes/locationSelecter');
@@ -12,10 +12,17 @@ var newEquitment = require('./routes/newEquitment');
 var newLocation = require('./routes/newLocation');
 var app = express();
 
+app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
+app.use(bodyParser.urlencoded({            //此项必须在 bodyParser.json 下面,为参数编码
+  extended: true
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

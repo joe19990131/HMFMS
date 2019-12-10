@@ -142,7 +142,7 @@
                               <div class="form-btn">
                                       <button class="btn btn-default">取消</button>
                                       <button class="btn btn-danger">清除</button>
-                                      <button type="submit"  class="btn btn-primary" id="selectByLoc_btn">查詢</button>
+                                      <button   class="btn btn-primary" id="selectByLoc_btn">查詢</button>
                               </div>
                               
                       
@@ -169,6 +169,7 @@ $(document).ready(function(){
   $("#expDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
   $("#oid_inputer").kendoMaskedTextBox(); 
   $("#locid_inputer").kendoMaskedTextBox(); 
+  /*
   var testData = new kendo.data.DataSource({
           data:[{Id:1,Ot:"乾粉",Ts:"5",Cs:"正常",LCDate:"2019/01/22",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-1",MLoc:""},
                 {Id:2,Ot:"乾粉",Ts:"5",Cs:"正常",LCDate:"2019/01/22",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-2",MLoc:"705-2"}],
@@ -200,11 +201,11 @@ $(document).ready(function(){
                             input: true,
                             numeric: false
                         },
-  });
+  });*/
 });
 
 //施工中
-/*
+
 var gridCount = 0;
 $("#selectByEq_btn").click(function(){
         if (gridCount != 0) {
@@ -268,6 +269,6 @@ $("#selectByEq_btn").click(function(){
                         },
   });
 });
-*/
+
 </script>
 </html>

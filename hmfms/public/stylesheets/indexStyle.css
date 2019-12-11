@@ -73,10 +73,14 @@ margin: 10px;
 margin-right: 0px;
 }
 .quick-btn-area{
-float: right;
-
+float: none;
+clear: left;
+margin-bottom: 10px;
 }
 .form-group{
 margin-bottom: 30px;
 height: 30px;
+}
+label{
+  clear: both;
 }

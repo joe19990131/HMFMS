@@ -1,6 +1,9 @@
 var express = require('express');
 var mysql  = require ('mysql');
 var router = express.Router();
+var bodyParser = require('body-parser');
+var app = express();
+
 
 //sql setting
 var conn = mysql.createConnection({
@@ -29,13 +32,29 @@ router.get('/newLocation', function(req, res, next) {
 //form send file test
 router.post('/searchByEq',function(req, res, next) {
   var oid = req.body.OID;
-  var ot = req.body.OT;
-  var ts = req.body.TS;
-  var cs = req.body.CS;
-  var exp = req.body.EXP;
-  conn.connect();
+  var ot = req.body.ObjectType;
+  var ts = req.body.TypeSpec;
+  var cs = req.body.checkStituation;
+  
 
-  res.send(oid+" "+ot+" "+ts+" "+cs+" "+exp);
+
+
+  console.log("HERE!!!");
+  console.log(req.body.OID);
+  console.log(req.body);
+  //conn.connect();
+  console.log(oid+" "+ot+" "+ts+" "+cs+" ");
+  res.json({OID:1,ObjectType:"乾粉",TtpeSpec:"5",checkStituation:"正常",CheckDate:"2019/01/22",ManufatureDate:"2010/01/22",EXPdate:"2020/01/22",Location:"703-1",MigrateLoc:""});
+});
+
+
+router.post('/searchByLoc',function(req, res, next) {
+  console.log("HERE!!!");
+
+  console.log(req.body);
+
+  //conn.connect();
+  //res.send(oid+" "+ot+" "+ts+" "+cs+" "+exp);
 });
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {

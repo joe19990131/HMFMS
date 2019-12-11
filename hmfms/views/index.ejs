@@ -43,7 +43,7 @@
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">型號</label>
                               <div class="col-md-9">
-                              <select id="ot_selecter" name="OT" class=" form-control">
+                              <select id="ot_selecter" name="OT" class=" form-control" type="text">
                                       <option value="">請選擇</option>
                                       <option value="乾粉">乾粉</option>
                                       <option value="海龍">海龍</option>
@@ -56,7 +56,7 @@
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">規格</label>
                               <div class="col-md-9">
-                              <select id="ts_selecter" name="TS" class=" form-control">
+                              <select id="ts_selecter" name="TS" class=" form-control" type="text">
                                         <option value="">請選擇</option>
                                       <option value="3">3型</option>
                                       <option value="5">5型</option>
@@ -73,7 +73,7 @@
                       <div class="form-group row">
                               <label class="col-md-3 control-label" style="margin-bottom: 20px;">狀態</label>
                               <div class="col-md-9">
-                              <select id="cs_selecter" name="CS" class=" form-control">
+                              <select id="cs_selecter" name="CS" class=" form-control" type="text">
                                         <option value="">請選擇</option>
                                       <option value="正常">正常</option>
                                       <option value="遺失">遺失</option>
@@ -83,16 +83,12 @@
                               </div>
                       </div>
       
-                      <div class="form-group row">
-                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">使用期限</label>
-                              <div class="col-md-9">
-                                      <input id="expDatePicker" name="EXP" value="10/10/2011" title="datepicker" style="width: 100%" />
-                              </div>
-                      </div>
+                      
                       <div class="quick-btn-area">
-                              <button id="locErrEQ_searcher" class="btn btn-default">異位設備查詢</button>
-                              <button id="lossEQ_searcher" class="btn btn-default">遺失設備查詢</button>
-                              <button id="discardEQ_searcher" class="btn btn-default">報廢設備查詢</button>
+                        <button id="nearExpEQ_searcher" class="btn btn-default">即期設備查詢</button>
+                        <button id="locErrEQ_searcher" class="btn btn-default">異位設備查詢</button>
+                        <button id="lossEQ_searcher" class="btn btn-default">遺失設備查詢</button>
+                        <button id="discardEQ_searcher" class="btn btn-default">報廢設備查詢</button>
                       </div>
       
                       <div class="form-btn">
@@ -117,6 +113,14 @@
                                               <input type="text" name="LocID" class="form-control" id="locid_inputer">        
                                       </div>
                               </div>
+                              
+                              <div class="form-group row">
+                                <label class="col-md-3 control-label" style="margin-bottom: 20px;">分院</label>
+                                        <div class="col-md-9">
+                                        <select id="hid_selecter" class=" form-control"></select>
+                                        </div>
+                                </div>
+
                               <div class="form-group row">
                                       <label class="col-md-3 control-label" style="margin-bottom: 20px;">館別</label>
                                       <div class="col-md-9">
@@ -135,14 +139,11 @@
                                       <select id="loc_selecter" class=" form-control"></select>
                                       </div>
                               </div>
-                              <div class="quick-btn-area">
-                                      <button id="locErrEQ_searcher" class="btn btn-default">廢棄地點查詢</button>
-                                      
-                              </div>
+                              
                               <div class="form-btn">
                                       <button class="btn btn-default">取消</button>
                                       <button class="btn btn-danger">清除</button>
-                                      <button type="submit"  class="btn btn-primary" id="selectByLoc_btn">查詢</button>
+                                      <button   class="btn btn-primary" id="selectByLoc_btn">查詢</button>
                               </div>
                               
                       
@@ -166,9 +167,10 @@ $(document).ready(function(){
   $("#mainSelect_fbtn").click(function(){
     $("#select_area").toggle(200);
   });
-  $("#expDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
   $("#oid_inputer").kendoMaskedTextBox(); 
+
   $("#locid_inputer").kendoMaskedTextBox(); 
+  /*
   var testData = new kendo.data.DataSource({
           data:[{Id:1,Ot:"乾粉",Ts:"5",Cs:"正常",LCDate:"2019/01/22",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-1",MLoc:""},
                 {Id:2,Ot:"乾粉",Ts:"5",Cs:"正常",LCDate:"2019/01/22",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-2",MLoc:"705-2"}],
@@ -200,11 +202,11 @@ $(document).ready(function(){
                             input: true,
                             numeric: false
                         },
-  });
+  });*/
 });
 
 //施工中
-/*
+
 var gridCount = 0;
 $("#selectByEq_btn").click(function(){
         if (gridCount != 0) {
@@ -215,15 +217,16 @@ $("#selectByEq_btn").click(function(){
                 "OID" : $("#oid_inputer").val(),
                 "ObjectType" : $("#ot_selecter").val(),
                 "TypeSpec" : $("#ts_selecter").val(),
-                "checkStituation" : $("#cs_selecter").val(),
-                "EXPdate" : $("#expDatePicker").val()
+                "checkStituation" : $("#cs_selecter").val()
         };
+
+
         $("#data_grid").kendoGrid({
           dataSource:{
                 transport: {
                     read: {
                         method: "post",
-                        url: "/index/searchByEq",
+                        url: "searchByEq",
                         dataType: "json",
                         data: data
                     }
@@ -268,6 +271,71 @@ $("#selectByEq_btn").click(function(){
                         },
   });
 });
-*/
+
+
+$("#selectByLoc_btn").click(function(){
+        if (gridCount != 0) {
+            $("#book_grid").data('kendoGrid').destroy();
+        }
+        gridCount++;
+        var data = {
+                "LocID" : $("#locid_inputer").val(),
+                "HID" : $("#hid_selecter").val(),
+                "BID" : $("#bid_selecter").val(),
+                "LocFloor" : $("#bf_selecter").val(),
+                "LocName" : $("#loc_selecter").val()
+        };
+
+
+        $("#data_grid").kendoGrid({
+          dataSource:{
+                transport: {
+                    read: {
+                        method: "post",
+                        url: "searchByLoc",
+                        dataType: "json",
+                        data: data
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            OID: { type: "int" },
+                            ObjectType: { type: "string" },
+                            TypeSpec: { type: "string" },
+                            checkStituation: { type: "string" },
+                            CheckDate: { type: "string" },
+                            ManufatureDate: { type: "string" },
+                            EXPdate: { type: "string" },
+                            Location: { type: "string" },
+                            MigrateLoc: { type: "string" },
+                        }
+                    }
+                },
+                pageSize: 20,
+            },
+          height:600,
+          columns:[
+                  {field:"OID",title:"設備編號",width:"8%"},
+                  {field:"ObjectType",title:"型號",width:"10%"},
+                  {field:"TtpeSpec",title:"規格",width:"10%"},
+                  {field:"checkStituation",title:"狀態",width:"10%"},
+                  {field:"CheckDate",title:"檢查日期",width:"10%"},
+                  {field:"ManufatureDate",title:"製造日期",width:"10%"},
+                  {field:"EXPdate",title:"有效期限",width:"10%"},
+                  {field:"Location",title:"放置位置",width:"15%"},
+                  {field:"MigrateLoc",title:"異動位置",width:"15%"},
+                  { command: { text: "報廢",}, title: " ", width: "8%" },
+
+          ],
+          sortable:true,
+          scrollable: true,
+                        sortable: true,
+                        pageable: {
+                            input: true,
+                            numeric: false
+                        },
+  });
+});
 </script>
 </html>

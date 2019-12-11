@@ -48,6 +48,16 @@ router.post('/searchByEq',function(req, res, next) {
 });
 
 
+router.post('/searchByLoc',function(req,res,next){
+  var locId = req.body.LocID;
+  var HID = req.body.HID;
+  var BID = req.body.BID;
+  var LocFloor = req.body.LocFloor;
+  var LocName = req.body.LocName;
+
+console.log(locId+' '+HID+' '+BID+' '+LocFloor+' '+LocName);
+});
+
 router.post('/searchByLoc',function(req, res, next) {
   console.log("HERE!!!");
 

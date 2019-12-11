@@ -150,14 +150,14 @@
               </div>
               <div style="background-color: rgb(49, 47, 47);height: 5px;"></div>
       </div>
-      <h3 style="margin-left: 8%;margin-top: 2%;margin-bottom: 1%;">設備清單</h3>       
+      <h3 style="margin-left: 8%;margin-top: 2%;margin-bottom: 1%;" id="title_bar">設備清單</h3>       
       <div id="data_grid" class="col-12" style="margin: 8%;margin-top: 0%;"></div>     
   </body>
 <script>
 $(document).ready(function(){
   $("#select_area").hide();
   $(".hide_selecter").hide();
-
+  $("#title_bar").hide();
   $("#selectByEq_fbtn").click(function(){
     $("#selectByEquit").toggle(200);
   });
@@ -212,6 +212,7 @@ $("#selectByEq_btn").click(function(){
         if (gridCount != 0) {
             $("#book_grid").data('kendoGrid').destroy();
         }
+        $("#title_bar").show();
         gridCount++;
         var data = {
                 "OID" : $("#oid_inputer").val(),

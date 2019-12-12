@@ -35,10 +35,6 @@ router.post('/searchByEq',function(req, res, next) {
   var ot = req.body.ObjectType;
   var ts = req.body.TypeSpec;
   var cs = req.body.checkStituation;
-  
-
-
-
   console.log("HERE!!!");
   console.log(req.body.OID);
   console.log(req.body);
@@ -48,15 +44,7 @@ router.post('/searchByEq',function(req, res, next) {
 });
 
 
-router.post('/searchByLoc',function(req,res,next){
-  var locId = req.body.LocID;
-  var HID = req.body.HID;
-  var BID = req.body.BID;
-  var LocFloor = req.body.LocFloor;
-  var LocName = req.body.LocName;
 
-console.log(locId+' '+HID+' '+BID+' '+LocFloor+' '+LocName);
-});
 
 router.post('/searchByLoc',function(req, res, next) {
   console.log("HERE!!!");

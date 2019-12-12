@@ -222,69 +222,6 @@ $("#selectByEq_btn").click(function(){
 });
 
 
-$("#selectByLoc_btn").click(function(){
-        if (gridCount != 0) {
-            $("#data_grid").data('kendoGrid').destroy();
-        }
-        gridCount++;
-        var data = {
-                "LocID" : $("#locid_inputer").val(),
-                "HID" : $("#hid_selecter").val(),
-                "BID" : $("#bid_selecter").val(),
-                "LocFloor" : $("#bf_selecter").val(),
-                "LocName" : $("#loc_selecter").val()
-        };
 
-
-        $("#data_grid").kendoGrid({
-          dataSource:{
-                transport: {
-                    read: {
-                        method: "post",
-                        url: "searchByLoc",
-                        dataType: "json",
-                        data: data
-                    }
-                },
-                schema: {
-                    model: {
-                        fields: {
-                            OID: { type: "int" },
-                            ObjectType: { type: "string" },
-                            TypeSpec: { type: "string" },
-                            checkStituation: { type: "string" },
-                            CheckDate: { type: "string" },
-                            ManufatureDate: { type: "string" },
-                            EXPdate: { type: "string" },
-                            Location: { type: "string" },
-                            MigrateLoc: { type: "string" },
-                        }
-                    }
-                },
-                pageSize: 20,
-            },
-          height:600,
-          columns:[
-                  {field:"OID",title:"設備編號",width:"8%"},
-                  {field:"ObjectType",title:"型號",width:"10%"},
-                  {field:"TtpeSpec",title:"規格",width:"10%"},
-                  {field:"checkStituation",title:"狀態",width:"10%"},
-                  {field:"CheckDate",title:"檢查日期",width:"10%"},
-                  {field:"ManufatureDate",title:"製造日期",width:"10%"},
-                  {field:"EXPdate",title:"有效期限",width:"10%"},
-                  {field:"Location",title:"放置位置",width:"15%"},
-                  {field:"MigrateLoc",title:"異動位置",width:"15%"},
-                  { command: { text: "報廢",}, title: " ", width: "8%" },
-
-          ],
-          sortable:true,
-          scrollable: true,
-                        sortable: true,
-                        pageable: {
-                            input: true,
-                            numeric: false
-                        },
-  });
-});
 </script>
 </html>

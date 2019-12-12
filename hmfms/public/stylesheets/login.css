@@ -1,0 +1,39 @@
+body{
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/d/db/Cathay_General_Hospital_HQ_20160723.jpg");;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.login-form {
+    width: 400px;
+    height: 200px;
+    padding: 17px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -200px;
+    margin-top: -200px;
+    background-color: rgba(240, 255, 255, 0.7);
+    border-radius: 10px;
+    text-align: center;
+}
+.image_logo {
+    margin-top: 25px;
+ }
+.login-form input[type="password"],
+.login-form input[type="text"] {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #dddddd;
+    margin-bottom: 15px;
+    box-sizing:border-box;
+}
+.login-form input[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    background-color: #00AA00;
+    border: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-weight: bold;
+    color: #ffffff;
+}

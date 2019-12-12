@@ -29,7 +29,6 @@
         <h4 class="main_func_text">地點查詢</h4>
 </div>
 <div class ="hide_selecter" id="select">
-    <form action="search-loc" method="post">
             <div class="form-group row">
                     <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點名稱</label>
                     <div class="col-md-9">
@@ -37,14 +36,6 @@
                     </div>
             </div>
             
-
-            <div class="form-group row">
-                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點名稱</label>
-                    <div class="col-md-9">
-                    <select id="loc_name" class=" form-control"></select>
-                    </div>
-            </div>
-
         <div class="form-group row">
                     <label class="col-md-3 control-label" style="margin-bottom: 20px;">分院</label>
                     <div class="col-md-9">
@@ -65,17 +56,32 @@
                     </div>
             </div>
 
+            <div class="form-group row">
+                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點名稱</label>
+                    <div class="col-md-9">
+                    <select id="loc_name" class=" form-control"></select>
+                    </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;">狀態</label>
+                <div class="col-md-9">
+                <select id="isDiscard" class=" form-control">
+                        <option value="0">正常</option>
+                        <option value="1">廢棄</option>
+                </select>
+                </div>
+        </div>
+
         <div id="quick-btn-area">
-                <button id="discardEQ_searcher" class="btn btn-default quick-btn">廢棄地點查詢</button>
+                <button class="btn btn-default" id="reqList_btn">器材缺乏清單</button>
         </div>
 
         <div class="form-btn">
-                <button class="btn btn-default">取消</button>
+
             <button class="btn btn-danger">清除</button>
-            <button type="submit" value="submit" class="btn btn-primary">查詢</button>
+            <button type="submit" value="submit" class="btn btn-primary" id="selectByLoc_btn">查詢</button>
         </div>
         
-    </form>
 </div>
 <hr id="underline" class="style-one" />
 <div id="data_grid" class="col-12" style="margin: 3%;margin-top: 1%;"></div>
@@ -89,7 +95,7 @@ $(document).ready(function(){
             $("#underline").toggle(200);
     })
     $("#locid_inputer").kendoMaskedTextBox();
-    var testData = new kendo.data.DataSource({
+ /*   var testData = new kendo.data.DataSource({
           data:[{LId:1,ln:"701",h:"總院",b:"本館",f:7},
                 {LId:2,ln:"701-1",h:"總院",b:"本館",f:7}],
                 pageSize:20
@@ -111,7 +117,127 @@ $(document).ready(function(){
 
           ],
           sortable:true
-  }); 
+  }); */
+});
+
+var gridCount = 0;
+$("#selectByLoc_btn").click(function(){
+        if (gridCount != 0) {
+            $("#data_grid").data('kendoGrid').destroy();
+        }
+        gridCount++;
+        var data = {
+                "LocID" : $("#locid_inputer").val(),
+                "HID" : $("#hid").val(),
+                "BID" : $("#bid").val(),
+                "LocFloor" : $("#bfloor").val(),
+                "LocName" : $("#loc_name").val()
+        };
+
+
+        $("#data_grid").kendoGrid({
+          dataSource:{
+                transport: {
+                    read: {
+                        method: "post",
+                        url: "searchByLoc",
+                        dataType: "json",
+                        data: data
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            LocID: { type: "int" },
+                            LocName: { type: "string" },
+                            BID: { type: "string" },
+                            HID: { type: "string" },
+                            LocFloor: { type: "string" },
+                            
+                        }
+                    }
+                },
+                pageSize: 20,
+            },
+          height:600,
+          columns:[
+                  {field:"LocID",title:"地點編號",width:"19%"},
+                  {field:"HID",title:"分院",width:"19%"},
+                  {field:"BID",title:"館別",width:"19%"},
+                  {field:"LocFloor",title:"樓層",width:"19%"},
+                  {field:"Locname",title:"地點名稱",width:"19%"},
+                  { command: { text: "報廢",}, title: " ", width: "5%" },
+
+          ],
+          sortable:true,
+          scrollable: true,
+                        sortable: true,
+                        pageable: {
+                            input: true,
+                            numeric: false
+                        },
+  });
+});
+
+
+
+
+$("#reqList_btn").click(function(){
+        if (gridCount != 0) {
+            $("#data_grid").data('kendoGrid').destroy();
+        }
+        gridCount++;
+        var data = {    
+        };
+
+
+        $("#data_grid").kendoGrid({
+          dataSource:{
+                transport: {
+                    read: {
+                        method: "post",
+                        url: "reqList",
+                        dataType: "json",
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            reqID: { type: "int" },
+                            LocName: { type: "string" },
+                            Bname: { type: "string" },
+                            Hname: { type: "string" },
+                            LocFloor: { type: "string" },
+                            reqType: { type: "string" },
+                            reqSpec: { type: "string" },
+                            reqAmount: { type: "int" }
+                            
+                        }
+                    }
+                },
+                pageSize: 20,
+            },
+          height:600,
+          columns:[
+                  {field:"reqID",title:"清單編號",width:"11%"},
+                  {field:"Hname",title:"分院",width:"11%"},
+                  {field:"Bname",title:"館別",width:"11%"},
+                  {field:"LocFloor",title:"樓層",width:"11%"},
+                  {field:"Locname",title:"地點名稱",width:"18%"},
+                  {field:"reqType",title:"型號",width:"11%"},
+                  {field:"reqSpec",title:"規格",width:"11%"},
+                  {field:"reqAmount",title:"數量",width:"11%"},
+                  { command: { text: "清除",}, title: " ", width: "5%" },
+
+          ],
+          sortable:true,
+          scrollable: true,
+                        sortable: true,
+                        pageable: {
+                            input: true,
+                            numeric: false
+                        },
+  });
 });
 </script>
 </html>

@@ -84,14 +84,10 @@
                       </div>
       
                       
-                      <div class="quick-btn-area">
-                        <button id="nearExpEQ_searcher" class="btn btn-default">即期設備查詢</button>
-                        <button id="locErrEQ_searcher" class="btn btn-default">異位設備查詢</button>
-                        <button id="lossEQ_searcher" class="btn btn-default">遺失設備查詢</button>
-                        <button id="discardEQ_searcher" class="btn btn-default">報廢設備查詢</button>
-                      </div>
+                      
       
                       <div class="form-btn">
+                                <button id="nearExpEQ_searcher" class="btn btn-default">即期設備查詢</button>
                               <button class="btn btn-default">取消</button>
                       <button class="btn btn-danger">清除</button>
                       <button type="submit"  class="btn btn-primary" id="selectByEq_btn">查詢</button>
@@ -102,52 +98,7 @@
                   
               </div>
         
-              <div class="main_fbtn" id="selectByLoc_fbtn">
-                      <h5 class="main_func_text">使用放置地點搜尋</h5>
-              </div>
-              <div class ="hide_selecter" id="selectByLoc">
-                     
-                              <div class="form-group row">
-                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點ID</label>
-                                      <div class="col-md-9">
-                                              <input type="text" name="LocID" class="form-control" id="locid_inputer">        
-                                      </div>
-                              </div>
-                              
-                              <div class="form-group row">
-                                <label class="col-md-3 control-label" style="margin-bottom: 20px;">分院</label>
-                                        <div class="col-md-9">
-                                        <select id="hid_selecter" class=" form-control"></select>
-                                        </div>
-                                </div>
 
-                              <div class="form-group row">
-                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">館別</label>
-                                      <div class="col-md-9">
-                                      <select id="bid_selecter" class=" form-control"></select>
-                                      </div>
-                              </div>
-                              <div class="form-group row">
-                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">樓層</label>
-                                      <div class="col-md-9">
-                                      <select id="bf_selecter" class=" form-control"></select>
-                                      </div>
-                              </div>
-                              <div class="form-group row">
-                                      <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點</label>
-                                      <div class="col-md-9">
-                                      <select id="loc_selecter" class=" form-control"></select>
-                                      </div>
-                              </div>
-                              
-                              <div class="form-btn">
-                                      <button class="btn btn-default">取消</button>
-                                      <button class="btn btn-danger">清除</button>
-                                      <button   class="btn btn-primary" id="selectByLoc_btn">查詢</button>
-                              </div>
-                              
-                      
-              </div>
               <div style="background-color: rgb(49, 47, 47);height: 5px;"></div>
       </div>
       <h3 style="margin-left: 8%;margin-top: 2%;margin-bottom: 1%;" id="title_bar">設備清單</h3>       
@@ -158,14 +109,11 @@ $(document).ready(function(){
   $("#select_area").hide();
   $(".hide_selecter").hide();
   $("#title_bar").hide();
-  $("#selectByEq_fbtn").click(function(){
-    $("#selectByEquit").toggle(200);
-  });
-  $("#selectByLoc_fbtn").click(function(){
-    $("#selectByLoc").toggle(200);
-  });
+  
+  
   $("#mainSelect_fbtn").click(function(){
     $("#select_area").toggle(200);
+    $(".hide_selecter").toggle(200);
   });
   $("#oid_inputer").kendoMaskedTextBox(); 
 
@@ -210,7 +158,7 @@ $(document).ready(function(){
 var gridCount = 0;
 $("#selectByEq_btn").click(function(){
         if (gridCount != 0) {
-            $("#book_grid").data('kendoGrid').destroy();
+            $("#data_grid").data('kendoGrid').destroy();
         }
         $("#title_bar").show();
         gridCount++;
@@ -276,7 +224,7 @@ $("#selectByEq_btn").click(function(){
 
 $("#selectByLoc_btn").click(function(){
         if (gridCount != 0) {
-            $("#book_grid").data('kendoGrid').destroy();
+            $("#data_grid").data('kendoGrid').destroy();
         }
         gridCount++;
         var data = {

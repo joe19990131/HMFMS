@@ -1,7 +1,8 @@
 var express = require('express');
-var bodyParser = require('body-parser');
 var mysql  = require ('mysql');
 var router = express.Router();
+var bodyParser = require('body-parser');
+var app = express();
 
 //sql setting
 var conn = mysql.createConnection({
@@ -25,23 +26,26 @@ router.get('/newEquitment', function(req, res, next) {
 router.get('/newLocation', function(req, res, next) {
   res.render('newLocation');
 });
-router.post('/searchByLoc',function(req,res){
-  var LocID = req.body.locid_inputer;
-  var Hname = req.body.hid;
-  var Bname = req.body.bid;
-  var LocFloor = req.body.bfloor;
-  var LocName = req.body.loc_name;
 
-  console.log(LocID);
+router.post('/searchByLoc',function(req,res,next){
+  var LocID = req.body['LocID'];
+  var Bid = req.body['BID'];
+  var LocFloor = req.body['LocFloor'];
+  var LocName = req.body['LocName'];
+  console.log(req);
+
 });
 
-router.post('/reqList',function(req,res){
+
+
+//path正確，但會404
+router.post('/reqList',function(req,res,next){
   //sql query need check!!
 var sql = ""
 conn.query(sql,function(err,rows){
   res.json(rows);
 })
-console.log(LocID);
+console.log("HERE");
 });
 
 

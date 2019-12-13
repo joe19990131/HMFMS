@@ -18,7 +18,7 @@
     <img src = "images/homeTitlePicture.jpg" id="homeTitlePicture">
     <ul style="margin-bottom: 1px;">
         <li><a class="active" href="#home">HMFMSystem</a></li>
-        <li><a href="#index">設備查詢</a></li>
+        <li><a href="">設備查詢</a></li>
         <li><a href="/locationSelecter">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
@@ -162,7 +162,7 @@ $("#selectByEq_btn").click(function(){
         }
         $("#title_bar").show();
         gridCount++;
-        var data = {
+        var params = {
                 "OID" : $("#oid_inputer").val(),
                 "ObjectType" : $("#ot_selecter").val(),
                 "TypeSpec" : $("#ts_selecter").val(),
@@ -177,7 +177,7 @@ $("#selectByEq_btn").click(function(){
                         method: "post",
                         url: "searchByEq",
                         dataType: "json",
-                        data: data
+                        data: params
                     }
                 },
                 schema: {
@@ -221,7 +221,23 @@ $("#selectByEq_btn").click(function(){
   });
 });
 
+function deleteBook(e) {
+        e.preventDefault();
+        var obj = this.dataItem($(e.currentTarget).closest("tr"));
 
+        if (confirm("確定嗎??") == true) {
+            $.ajax({
+                type: "POST",
+                url: "DeleteObj",
+                data: { "OID": boj.OID },
+                dataType: "json",
+            }).done(function (e) {
+                if (e == true) $("#data_grid").data("kendoGrid").dataSource.read();
+            })
+
+        } else 
+        return false;
+    }
 
 </script>
 </html>

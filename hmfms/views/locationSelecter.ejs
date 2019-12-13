@@ -18,7 +18,7 @@
     <ul style="margin-bottom: 2px;">
         <li><a class="active" href="#home">HMFMSystem</a></li>
         <li><a href="/">設備查詢</a></li>
-        <li><a href="#locationSelecter">地點查詢</a></li>
+        <li><a href="">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
     </ul>
@@ -30,23 +30,23 @@
 </div>
 <div class ="hide_selecter" id="select">
             <div class="form-group row">
-                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點名稱</label>
+                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點編號</label>
                     <div class="col-md-9">
                             <input type="text" name="LocID" class="form-control" id="locid_inputer">        
                     </div>
             </div>
             
-        <div class="form-group row">
-                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">分院</label>
-                    <div class="col-md-9">
-                    <select id="hid" class=" form-control"></select>
-                    </div>
-            </div>
 
             <div class="form-group row">
                     <label class="col-md-3 control-label" style="margin-bottom: 20px;">館別</label>
                     <div class="col-md-9">
-                    <select id="bid" class=" form-control"></select>
+                    <select id="bid" class=" form-control">
+                        <option value="1">本院本館</option>
+                        <option value="2">本院一分館</option>
+                        <option value="3">本院二分館</option>
+                        <option value="4">汐止</option>
+                        <option value="5">新竹</option>
+                    </select>
                     </div>
             </div>
             <div class="form-group row">
@@ -56,12 +56,6 @@
                     </div>
             </div>
 
-            <div class="form-group row">
-                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點名稱</label>
-                    <div class="col-md-9">
-                    <select id="loc_name" class=" form-control"></select>
-                    </div>
-            </div>
             <div class="form-group row">
                 <label class="col-md-3 control-label" style="margin-bottom: 20px;">狀態</label>
                 <div class="col-md-9">
@@ -126,23 +120,22 @@ $("#selectByLoc_btn").click(function(){
             $("#data_grid").data('kendoGrid').destroy();
         }
         gridCount++;
-        var data = {
+        var params = {
                 "LocID" : $("#locid_inputer").val(),
-                "HID" : $("#hid").val(),
                 "BID" : $("#bid").val(),
-                "LocFloor" : $("#bfloor").val(),
-                "LocName" : $("#loc_name").val()
+                "LocFloor" : $("#bfloor").val()
+                
         };
 
 
         $("#data_grid").kendoGrid({
           dataSource:{
-                transport: {
+            transport: {
                     read: {
                         method: "post",
-                        url: "searchByLoc",
+                        url: "searchByEq",
                         dataType: "json",
-                        data: data
+                        data: params
                     }
                 },
                 schema: {
@@ -150,8 +143,7 @@ $("#selectByLoc_btn").click(function(){
                         fields: {
                             LocID: { type: "int" },
                             LocName: { type: "string" },
-                            BID: { type: "string" },
-                            HID: { type: "string" },
+                            BName: { type: "string" },
                             LocFloor: { type: "string" },
                             
                         }
@@ -162,11 +154,10 @@ $("#selectByLoc_btn").click(function(){
           height:600,
           columns:[
                   {field:"LocID",title:"地點編號",width:"19%"},
-                  {field:"HID",title:"分院",width:"19%"},
-                  {field:"BID",title:"館別",width:"19%"},
+                  {field:"BName",title:"館別",width:"19%"},
                   {field:"LocFloor",title:"樓層",width:"19%"},
                   {field:"Locname",title:"地點名稱",width:"19%"},
-                  { command: { text: "報廢",}, title: " ", width: "5%" },
+                  { command: { text: "廢除",}, title: " ", width: "5%" },
 
           ],
           sortable:true,
@@ -206,7 +197,6 @@ $("#reqList_btn").click(function(){
                             reqID: { type: "int" },
                             LocName: { type: "string" },
                             Bname: { type: "string" },
-                            Hname: { type: "string" },
                             LocFloor: { type: "string" },
                             reqType: { type: "string" },
                             reqSpec: { type: "string" },
@@ -220,7 +210,6 @@ $("#reqList_btn").click(function(){
           height:600,
           columns:[
                   {field:"reqID",title:"清單編號",width:"11%"},
-                  {field:"Hname",title:"分院",width:"11%"},
                   {field:"Bname",title:"館別",width:"11%"},
                   {field:"LocFloor",title:"樓層",width:"11%"},
                   {field:"Locname",title:"地點名稱",width:"18%"},

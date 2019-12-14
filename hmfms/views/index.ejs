@@ -22,6 +22,7 @@
         <li><a href="/locationSelecter">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
+        <li><a href="/objReq">器材缺乏報表</a></li>
     </ul>
     <div id="mainSelect_fbtn" class="main_fbtn" style="border-bottom: 2px solid rgb(65, 65, 65); background-color: rgb(49, 47, 47);">
       <h4 class="main_func_text">搜尋</h4>
@@ -71,7 +72,7 @@
                               </div>
                       </div>
                       <div class="form-group row">
-                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">狀態</label>
+                              <label class="col-md-3 control-label" style="margin-bottom: 25px;">狀態</label>
                               <div class="col-md-9">
                               <select id="cs_selecter" name="CS" class=" form-control" type="text">
                                         <option value="">請選擇</option>
@@ -83,14 +84,26 @@
                               </div>
                       </div>
       
-                      
+                      <div class="form-group row">
+                              <label class="col-md-3 control-label" style="margin-bottom: 20px;">是否到期</label>
+                              <div class="col-md-9">
+                                      <ui class="fieldlist" style="list-style: none">
+                                              <li>
+                                                <select id="isNE"  class=" form-control" type="text">
+                                                        <option value="0">請選擇</option>
+                                                      <option value="0">正常</option>
+                                                      <option value="1">即期</option>
+                                              </select>
+                                              </li>
+                                      </ui>
+                              </div>
+                      </div>
                       
       
                       <div class="form-btn">
-                                <button id="nearExpEQ_searcher" class="btn btn-default">即期設備查詢</button>
-                              <button class="btn btn-default">取消</button>
-                      <button class="btn btn-danger">清除</button>
-                      <button type="submit"  class="btn btn-primary" id="selectByEq_btn">查詢</button>
+                        <button class="btn btn-default">取消</button>
+                        <button class="btn btn-danger">清除</button>
+                        <button type="submit"  class="btn btn-primary" id="selectByEq_btn">查詢</button>
                       </div>
                       
                  
@@ -166,7 +179,8 @@ $("#selectByEq_btn").click(function(){
                 "OID" : $("#oid_inputer").val(),
                 "ObjectType" : $("#ot_selecter").val(),
                 "TypeSpec" : $("#ts_selecter").val(),
-                "checkStituation" : $("#cs_selecter").val()
+                "checkStituation" : $("#cs_selecter").val(),
+                "isNE" : $("#isNE").val()
         };
 
 
@@ -208,7 +222,7 @@ $("#selectByEq_btn").click(function(){
                   {field:"EXPdate",title:"有效期限",width:"10%"},
                   {field:"Location",title:"放置位置",width:"15%"},
                   {field:"MigrateLoc",title:"異動位置",width:"15%"},
-                  { command: { text: "報廢",}, title: " ", width: "8%" },
+                  { command: { text: "報廢",click:deleteEq}, title: " ", width: "8%" },
 
           ],
           sortable:true,
@@ -221,7 +235,10 @@ $("#selectByEq_btn").click(function(){
   });
 });
 
-function deleteBook(e) {
+
+
+
+function deleteEq(e) {
         e.preventDefault();
         var obj = this.dataItem($(e.currentTarget).closest("tr"));
 
@@ -229,7 +246,7 @@ function deleteBook(e) {
             $.ajax({
                 type: "POST",
                 url: "DeleteObj",
-                data: { "OID": boj.OID },
+                data: { "OID": obj.OID },
                 dataType: "json",
             }).done(function (e) {
                 if (e == true) $("#data_grid").data("kendoGrid").dataSource.read();

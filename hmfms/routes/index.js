@@ -29,14 +29,19 @@ router.get('/newEquitment', function(req, res, next) {
 router.get('/newLocation', function(req, res, next) {
   res.render('newLocation');
 });
+router.get('/objReq', function(req, res, next) {
+  res.render('objReq');
+});
 //form send file test
 router.post('/searchByEq',function(req, res, next) {
   var oid = req.body['OID'];
   var ot = req.body['ObjectType'];
   var ts = req.body['TypeSpec'];
   var cs = req.body['checkStituation'];
+  var isNE = req.body['isNE'];
   console.log("HERE!!!");
   console.log(req.body.OID);
+  console.log(isNE);
   console.log(req.body);
   //conn.connect();
   console.log(oid+" "+ot+" "+ts+" "+cs+" ");
@@ -44,8 +49,10 @@ router.post('/searchByEq',function(req, res, next) {
 });
 
 router.post('/DeleteObj',function(req,res){
-  var oid = req.get('OID');
-})
+  var oid = req.body['OID'];
+  console.log(oid);
+});
+
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
       if (err) res.send(404);

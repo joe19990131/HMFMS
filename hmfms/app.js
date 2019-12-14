@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 var locationSelecterRouter = require('./routes/locationSelecter');
 var newEquitment = require('./routes/newEquitment');
 var newLocation = require('./routes/newLocation');
+var objReq = require("./routes/objReq");
 var app = express();
 
 app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
@@ -35,6 +36,7 @@ app.use('/', indexRouter);
 app.use('/locationSelecter', locationSelecterRouter);
 app.use('/newEquitment',newEquitment);
 app.use('/newLocation',newLocation);
+app.use('/objReq',objReq);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

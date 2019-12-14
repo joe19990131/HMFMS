@@ -14,6 +14,9 @@ router.get('/newEquitment', function(req, res, next) {
 router.get('/newLocation', function(req, res, next) {
   res.render('newLocation');
 });
+router.get('/objReq', function(req, res, next) {
+  res.render('objReq');
+});
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
       if (err) res.send(404);

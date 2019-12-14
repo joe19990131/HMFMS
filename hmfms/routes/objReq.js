@@ -27,39 +27,13 @@ router.get('/newLocation', function(req, res, next) {
   res.render('newLocation');
 });
 router.get('/objReq', function(req, res, next) {
-  res.render('objReq');
-});
-
-router.post('/searchByLoc',function(req,res,next){
-  var LocID = req.body['LocID'];
-  var Bid = req.body['BID'];
-  var LocFloor = req.body['LocFloor'];
-  var LocName = req.body['LocName'];
-  console.log(req);
-
-});
-
-
-
-//path正確，但會404
-router.post('/reqList',function(req,res,next){
-  //sql query need check!!
-var sql = ""
-conn.query(sql,function(err,rows){
-  res.json(rows);
-})
-console.log("HERE");
-});
-
-
-
- 
-router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
-  res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
-      if (err) res.send(404);
+    res.render('objReq');
   });
-});
 
-
+  router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
+    res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
+        if (err) res.send(404);
+    });
+  });
+  
 module.exports = router;
-

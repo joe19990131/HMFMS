@@ -18,9 +18,10 @@
     <ul style="margin-bottom: 2px;">
         <li><a class="active" href="#home">HMFMSystem</a></li>
         <li><a href="/">設備查詢</a></li>
-        <li><a href="#locationSelecter">地點查詢</a></li>
+        <li><a href="">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
+        <li><a href="/objReq">器材缺乏報表</a></li>
     </ul>
 
 
@@ -29,9 +30,8 @@
         <h4 class="main_func_text">地點查詢</h4>
 </div>
 <div class ="hide_selecter" id="select">
-    <form action="search-loc" method="post">
             <div class="form-group row">
-                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點名稱</label>
+                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點編號</label>
                     <div class="col-md-9">
                             <input type="text" name="LocID" class="form-control" id="locid_inputer">        
                     </div>
@@ -39,23 +39,15 @@
             
 
             <div class="form-group row">
-                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">地點名稱</label>
-                    <div class="col-md-9">
-                    <select id="loc_name" class=" form-control"></select>
-                    </div>
-            </div>
-
-        <div class="form-group row">
-                    <label class="col-md-3 control-label" style="margin-bottom: 20px;">分院</label>
-                    <div class="col-md-9">
-                    <select id="hid" class=" form-control"></select>
-                    </div>
-            </div>
-
-            <div class="form-group row">
                     <label class="col-md-3 control-label" style="margin-bottom: 20px;">館別</label>
                     <div class="col-md-9">
-                    <select id="bid" class=" form-control"></select>
+                    <select id="bid" class=" form-control">
+                        <option value="1">本院本館</option>
+                        <option value="2">本院一分館</option>
+                        <option value="3">本院二分館</option>
+                        <option value="4">汐止</option>
+                        <option value="5">新竹</option>
+                    </select>
                     </div>
             </div>
             <div class="form-group row">
@@ -65,17 +57,24 @@
                     </div>
             </div>
 
-        <div id="quick-btn-area">
-                <button id="discardEQ_searcher" class="btn btn-default quick-btn">廢棄地點查詢</button>
+            <div class="form-group row">
+                <label class="col-md-3 control-label" style="margin-bottom: 20px;">狀態</label>
+                <div class="col-md-9">
+                <select id="isDiscard" class=" form-control">
+                        <option value="0">正常</option>
+                        <option value="1">廢棄</option>
+                </select>
+                </div>
         </div>
 
+    
+
         <div class="form-btn">
-                <button class="btn btn-default">取消</button>
+
             <button class="btn btn-danger">清除</button>
-            <button type="submit" value="submit" class="btn btn-primary">查詢</button>
+            <button type="submit" value="submit" class="btn btn-primary" id="selectByLoc_btn">查詢</button>
         </div>
         
-    </form>
 </div>
 <hr id="underline" class="style-one" />
 <div id="data_grid" class="col-12" style="margin: 3%;margin-top: 1%;"></div>
@@ -89,7 +88,7 @@ $(document).ready(function(){
             $("#underline").toggle(200);
     })
     $("#locid_inputer").kendoMaskedTextBox();
-    var testData = new kendo.data.DataSource({
+ /*   var testData = new kendo.data.DataSource({
           data:[{LId:1,ln:"701",h:"總院",b:"本館",f:7},
                 {LId:2,ln:"701-1",h:"總院",b:"本館",f:7}],
                 pageSize:20
@@ -111,7 +110,122 @@ $(document).ready(function(){
 
           ],
           sortable:true
-  }); 
+  }); */
+});
+
+var gridCount = 0;
+$("#selectByLoc_btn").click(function(){
+        if (gridCount != 0) {
+            $("#data_grid").data('kendoGrid').destroy();
+        }
+        gridCount++;
+        var params = {
+                "LocID" : $("#locid_inputer").val(),
+                "BID" : $("#bid").val(),
+                "LocFloor" : $("#bfloor").val()
+                
+        };
+
+
+        $("#data_grid").kendoGrid({
+          dataSource:{
+            transport: {
+                    read: {
+                        method: "post",
+                        url: "searchByEq",
+                        dataType: "json",
+                        data: params
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            LocID: { type: "int" },
+                            LocName: { type: "string" },
+                            BName: { type: "string" },
+                            LocFloor: { type: "string" },
+                            
+                        }
+                    }
+                },
+                pageSize: 20,
+            },
+          height:600,
+          columns:[
+                  {field:"LocID",title:"地點編號",width:"19%"},
+                  {field:"BName",title:"館別",width:"19%"},
+                  {field:"LocFloor",title:"樓層",width:"19%"},
+                  {field:"Locname",title:"地點名稱",width:"19%"},
+                  { command: { text: "廢除",}, title: " ", width: "5%" },
+
+          ],
+          sortable:true,
+          scrollable: true,
+                        sortable: true,
+                        pageable: {
+                            input: true,
+                            numeric: false
+                        },
+  });
+});
+
+
+
+
+$("#reqList_btn").click(function(){
+        if (gridCount != 0) {
+            $("#data_grid").data('kendoGrid').destroy();
+        }
+        gridCount++;
+        var data = {    
+        };
+
+
+        $("#data_grid").kendoGrid({
+          dataSource:{
+                transport: {
+                    read: {
+                        method: "post",
+                        url: "reqList",
+                        dataType: "json",
+                    }
+                },
+                schema: {
+                    model: {
+                        fields: {
+                            reqID: { type: "int" },
+                            LocName: { type: "string" },
+                            Bname: { type: "string" },
+                            LocFloor: { type: "string" },
+                            reqType: { type: "string" },
+                            reqSpec: { type: "string" },
+                            reqAmount: { type: "int" }
+                            
+                        }
+                    }
+                },
+                pageSize: 20,
+            },
+          height:600,
+          columns:[
+                  {field:"reqID",title:"清單編號",width:"11%"},
+                  {field:"Bname",title:"館別",width:"11%"},
+                  {field:"LocFloor",title:"樓層",width:"11%"},
+                  {field:"Locname",title:"地點名稱",width:"18%"},
+                  {field:"reqType",title:"型號",width:"11%"},
+                  {field:"reqSpec",title:"規格",width:"11%"},
+                  {field:"reqAmount",title:"數量",width:"11%"},
+                  { command: { text: "清除",}, title: " ", width: "5%" },
+
+          ],
+          sortable:true,
+          scrollable: true,
+                        sortable: true,
+                        pageable: {
+                            input: true,
+                            numeric: false
+                        },
+  });
 });
 </script>
 </html>

@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <script src="/kendo/js/kendo.all.min.js"></script>
+    <script src="/jszip.min.js"></script>
     <title>HMFMSystem</title>
 </head>
 <body>
@@ -27,16 +28,22 @@
 
 
     <h2 style="margin-left: 20px;">器材缺乏報表</h2>
-<div id="data_grid"></div>
+<div id="data_grid" style="margin: 30px;"></div>
 </body>
 <script>
 $(document).ready(function(){
     $("#data_grid").kendoGrid({
-          dataSource:{
+        toolbar: ["excel"],
+            excel: {
+                fileName: "Equitment req chart Export.xlsx",
+                proxyURL: "https://demos.telerik.com/kendo-ui/service/export",
+                filterable: true
+            },  
+        dataSource:{
             transport: {
                     read: {
                         method: "post",
-                        url: "searchByEq",
+                        url: "locReq",
                         dataType: "json"
                     }
                 },
@@ -47,6 +54,9 @@ $(document).ready(function(){
                             LocName: { type: "string" },
                             BName: { type: "string" },
                             LocFloor: { type: "string" },
+                            reqType:{type:"string"},
+                            reqTypeSpec:{type:"string"},
+                            reqAmount:{type:"string"}
                             
                         }
                     }
@@ -55,10 +65,13 @@ $(document).ready(function(){
             },
           height:600,
           columns:[
-                  {field:"LocID",title:"地點編號",width:"19%"},
+                  {field:"LocID",title:"地點編號",width:"10%"},
                   {field:"BName",title:"館別",width:"19%"},
                   {field:"LocFloor",title:"樓層",width:"19%"},
-                  {field:"Locname",title:"地點名稱",width:"19%"}
+                  {field:"Locname",title:"地點名稱",width:"19%"},
+                  {field:"reqType",title:"型號",width:"15%"},
+                  {field:"reqTypeSpec",title:"規格",width:"15%"},
+                  {field:"reqAmount",title:"需求數量",width:"10%"},
           ],
           sortable:true,
           scrollable: true,

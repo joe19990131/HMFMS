@@ -11,6 +11,7 @@ var locationSelecterRouter = require('./routes/locationSelecter');
 var newEquitment = require('./routes/newEquitment');
 var newLocation = require('./routes/newLocation');
 var objReq = require("./routes/objReq");
+
 var app = express();
 
 app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据

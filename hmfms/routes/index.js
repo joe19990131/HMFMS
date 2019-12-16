@@ -45,7 +45,19 @@ router.post('/searchByEq',function(req, res, next) {
   console.log(req.body);
   //conn.connect();
   console.log(oid+" "+ot+" "+ts+" "+cs+" ");
-  res.json({OID:1,ObjectType:"乾粉",TtpeSpec:"5",checkStituation:"正常",CheckDate:"2019/01/22",ManufatureDate:"2010/01/22",EXPdate:"2020/01/22",Location:"703-1",MigrateLoc:""});
+
+var sql1 = "select oid as OID,objtype as ObjectType,TypeSpec,checkstituation as checkStituation,checkDate,ManufatureDate,EXPdate,location_info.LocName,(select location_info.LocName from obj_info join location_info on obj_info.MigrateLocID = location_info.LocID) as MigrateLocID from obj_info join location_info using(LocID) order by OID;";
+  conn.query(sql1,function(err,rows){
+    console.log(rows);
+    if(err){
+      console.log(err);
+    }else{
+      res.json(rows);
+    }
+  })
+
+
+//res.json({OID:1,ObjectType:"乾粉",TtpeSpec:"5",checkStituation:"正常",CheckDate:"2019/01/22",ManufatureDate:"2010/01/22",EXPdate:"2020/01/22",Location:"703-1",MigrateLoc:""});
 });
 
 router.post('/DeleteObj',function(req,res){

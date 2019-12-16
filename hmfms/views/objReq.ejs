@@ -32,6 +32,7 @@
 </body>
 <script>
 $(document).ready(function(){
+    
     $("#data_grid").kendoGrid({
         toolbar: ["excel"],
             excel: {
@@ -43,8 +44,9 @@ $(document).ready(function(){
             transport: {
                     read: {
                         method: "post",
-                        url: "locReq",
-                        dataType: "json"
+                        url:"ReqList",
+                        dataType: "json",
+                        data:{"123":'ok'}
                     }
                 },
                 schema: {

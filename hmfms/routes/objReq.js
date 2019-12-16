@@ -29,7 +29,7 @@ router.get('/objReq', function(req, res, next) {
     res.render('objReq');
   });
 
-router.post('/locReq',function(req,res,next){
+router.post('/ReqList',function(req,res,next){
 console.log("here!!!");
 });
 

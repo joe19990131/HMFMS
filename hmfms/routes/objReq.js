@@ -14,10 +14,10 @@ var conn = mysql.createConnection({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.redirect('/index');
 });
 router.get('/locationSelecter', function(req, res, next) {
-  res.render('locationSelecter');
+  res.redirect('/locationSelecter');
 });
 router.get('/newEquitment', function(req, res, next) {
   res.render('newEquitment');

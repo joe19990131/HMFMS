@@ -11,6 +11,7 @@ var locationSelecterRouter = require('./routes/locationSelecter');
 var newEquitment = require('./routes/newEquitment');
 var newLocation = require('./routes/newLocation');
 var objReq = require("./routes/objReq");
+var save = require("./routes/save");
 
 var app = express();
 
@@ -38,6 +39,7 @@ app.use('/locationSelecter', locationSelecterRouter);
 app.use('/newEquitment',newEquitment);
 app.use('/newLocation',newLocation);
 app.use('/objReq',objReq);
+app.use('/save',save);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -37,14 +37,14 @@ $(document).ready(function(){
         toolbar: ["excel"],
             excel: {
                 fileName: "Equitment req chart Export.xlsx",
-                proxyURL: "https://demos.telerik.com/kendo-ui/service/export",
+                proxyURL: "/save",
                 filterable: true
             },  
         dataSource:{
             transport: {
                     read: {
                         method: "post",
-                        url:"ReqList",
+                        url:"objReq/ReqList",
                         dataType: "json",
                         data:{"123":'ok'}
                     }

@@ -30,23 +30,34 @@
         <div class="form-group row" style="margin-bottom:20px">
             <label class="col-md-3 control-label">型號</label>
             <div class="col-md-9">
-                <select id="obj_type" class=" form-control"></select>
+                <select id="obj_type" class=" form-control">
+                    <option value="">請選擇</option>
+                    <option value="乾粉">乾粉</option>
+                    <option value="海龍">海龍</option>
+                    <option value="CO2">CO2</option>
+                    <option value="H2O">H2O</option>
+                    <option value="泡沫">泡沫</option>
+                </select>
             </div>
         </div>
         <div class="form-group row" style="margin-bottom:20px">
             <label class="col-md-3 control-label">規格</label>
             <div class="col-md-9">
-                <select id="type_spec" class=" form-control"></select>
+                <select id="type_spec" class=" form-control">
+                    <option value="">請選擇</option>
+                    <option value="3">3型</option>
+                    <option value="5">5型</option>
+                    <option value="10">10型</option>
+                    <option value="20">20型</option>
+                    <option value="30">30型</option>
+                    <option value="50">50型(輪架)</option>
+                    <option value="100">100型(輪架)</option>
+                    <option value="150">150型(輪架)</option>
+                    <option value="200">200型(輪架)</option>
+                </select>
             </div>
         </div>
 
-        <div class="form-group row" style="margin-bottom:20px">
-
-            <label class="col-md-3 control-label">放置地點</label>
-            <div class="col-md-9">
-                <select id="loc" class=" form-control"></select>
-            </div>
-        </div>
 
         <div class="form-group row" style="margin-bottom:20px">
 
@@ -64,17 +75,21 @@
             </div>
         </div>
         <div class="form-btn">
-            <button class="btn btn-default">取消</button>
-            <button class="btn btn-danger">清除</button>
-            <button type="submit" value="submit" class="btn btn-primary">新增</button>
+            
+            <button type="submit" value="submit" class="btn btn-primary" style="float: right;">新增</button>
         </div>
     </form>
+    <button class="btn btn-danger" id="clean_btn" style="float: right; margin-top: 10px;">清除</button>
 </div>
 </body>
 <script>
 $(document).ready(function(){
     $("#expDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
     $("#manufaDatePicker").kendoDatePicker({ value: new Date(), format: "yyyy/MM/dd" });
+    $("#clean_btn").click(function(){
+        $("#obj_type").val("");
+        $("#type_spec").val("");
+    });
 });
 </script>
 </html>

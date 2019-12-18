@@ -6,13 +6,12 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var conn  = require ('./lib/db');
 
-
-var loginRouter = require('./routes/login');
 var indexRouter = require('./routes/index');
 var locationSelecterRouter = require('./routes/locationSelecter');
 var newEquitment = require('./routes/newEquitment');
 var newLocation = require('./routes/newLocation');
 var objReq = require("./routes/objReq");
+
 var app = express();
 
 app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
@@ -34,8 +33,7 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname, '/kendo')));
 app.use(express.static(path.join(__dirname, '/public/stylesheets')));
 
-app.use('/', loginRouter);
-app.use('/index', indexRouter);
+app.use('/', indexRouter);
 app.use('/locationSelecter', locationSelecterRouter);
 app.use('/newEquitment',newEquitment);
 app.use('/newLocation',newLocation);

@@ -3,7 +3,6 @@ var mysql  = require ('mysql');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var app = express();
-
 //sql setting
 var conn = mysql.createConnection({
   host : 'localhost',
@@ -15,10 +14,10 @@ var conn = mysql.createConnection({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index');
+  res.redirect(302,'/index');
 });
 router.get('/locationSelecter', function(req, res, next) {
-  res.render('locationSelecter');
+  res.redirect('/locationSelecter');
 });
 router.get('/newEquitment', function(req, res, next) {
   res.render('newEquitment');
@@ -29,6 +28,10 @@ router.get('/newLocation', function(req, res, next) {
 router.get('/objReq', function(req, res, next) {
     res.render('objReq');
   });
+
+router.post('/ReqList',function(req,res,next){
+console.log("here!!!");
+});
 
   router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
     res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {

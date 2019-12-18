@@ -101,8 +101,8 @@
                       
       
                       <div class="form-btn">
-                        <button class="btn btn-default">取消</button>
-                        <button class="btn btn-danger">清除</button>
+                        <button class="btn btn-default" id="cancel_btn">取消</button>
+                        <button class="btn btn-danger" id="clean_btn">清除</button>
                         <button type="submit"  class="btn btn-primary" id="selectByEq_btn">查詢</button>
                       </div>
                       
@@ -115,14 +115,18 @@
               <div style="background-color: rgb(49, 47, 47);height: 5px;"></div>
       </div>
       <h3 style="margin-left: 8%;margin-top: 2%;margin-bottom: 1%;" id="title_bar">設備清單</h3>       
-      <div id="data_grid" class="col-12" style="margin: 8%;margin-top: 0%;"></div>     
+      <div id="data_grid" class="col-12" style="margin: 2%;margin-top: 0%;"></div>     
   </body>
 <script>
 $(document).ready(function(){
   $("#select_area").hide();
   $(".hide_selecter").hide();
   $("#title_bar").hide();
-  
+  $("#oid_inputer").val("");
+        $("#ot_selecter").val("");
+        $("#ts_selecter").val("");
+        $("#cs_selecter").val("");
+        $("#isNE").val("");
   
   $("#mainSelect_fbtn").click(function(){
     $("#select_area").toggle(200);
@@ -131,6 +135,24 @@ $(document).ready(function(){
   $("#oid_inputer").kendoMaskedTextBox(); 
 
   $("#locid_inputer").kendoMaskedTextBox(); 
+  
+  $("#cancel_btn").click(function(){
+        $("#select_area").toggle(200);
+        $(".hide_selecter").toggle(200);
+        $("#oid_inputer").val("");
+        $("#ot_selecter").val("");
+        $("#ts_selecter").val("");
+        $("#cs_selecter").val("");
+        $("#isNE").val("");
+  });
+  $("#clean_btn").click(function(){
+        $("#oid_inputer").val("");
+        $("#ot_selecter").val("");
+        $("#ts_selecter").val("");
+        $("#cs_selecter").val("");
+        $("#isNE").val("");
+  })
+  
   /*
   var testData = new kendo.data.DataSource({
           data:[{Id:1,Ot:"乾粉",Ts:"5",Cs:"正常",LCDate:"2019/01/22",MDate:"2010/01/22",EDate:"2020/01/22",Loc:"703-1",MLoc:""},
@@ -170,9 +192,12 @@ $(document).ready(function(){
 
 var gridCount = 0;
 $("#selectByEq_btn").click(function(){
+
         if (gridCount != 0) {
             $("#data_grid").data('kendoGrid').destroy();
         }
+        $("#select_area").toggle(200);
+    $(".hide_selecter").toggle(200);
         $("#title_bar").show();
         gridCount++;
         var params = {
@@ -189,7 +214,7 @@ $("#selectByEq_btn").click(function(){
                 transport: {
                     read: {
                         method: "post",
-                        url: "searchByEq",
+                        url: "/searchByEq",
                         dataType: "json",
                         data: params
                     }
@@ -215,7 +240,7 @@ $("#selectByEq_btn").click(function(){
           columns:[
                   {field:"OID",title:"設備編號",width:"8%"},
                   {field:"ObjectType",title:"型號",width:"10%"},
-                  {field:"TtpeSpec",title:"規格",width:"10%"},
+                  {field:"TypeSpec",title:"規格",width:"10%"},
                   {field:"checkStituation",title:"狀態",width:"10%"},
                   {field:"CheckDate",title:"檢查日期",width:"10%"},
                   {field:"ManufatureDate",title:"製造日期",width:"10%"},

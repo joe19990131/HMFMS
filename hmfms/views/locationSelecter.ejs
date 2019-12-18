@@ -138,7 +138,7 @@ $("#selectByLoc_btn").click(function(){
             transport: {
                     read: {
                         method: "post",
-                        url: "/searchByLoc",
+                        url: "locationSelecter/searchByLoc",
                         dataType: "json",
                         data: params
                     }
@@ -162,7 +162,7 @@ $("#selectByLoc_btn").click(function(){
                   {field:"BName",title:"館別",width:"19%"},
                   {field:"LocFloor",title:"樓層",width:"19%"},
                   {field:"Locname",title:"地點名稱",width:"19%"},
-                  { command: { text: "廢除",}, title: " ", width: "5%" },
+                  { command: { text: "廢除",click:deleteLoc}, title: " ", width: "5%" },
 
           ],
           sortable:true,
@@ -175,63 +175,22 @@ $("#selectByLoc_btn").click(function(){
   });
 });
 
+function deleteLoc(e) {
+        e.preventDefault();
+        var loc = this.dataItem($(e.currentTarget).closest("tr"));
 
+        if (confirm("確定嗎??") == true) {
+            $.ajax({
+                type: "POST",
+                url: "locationSelecter/DeleteLoc",
+                data: { "LocID": loc.LocID },
+                dataType: "json",
+            }).done(function (e) {
+                if (e == true) $("#data_grid").data("kendoGrid").dataSource.read();
+            })
 
-
-$("#reqList_btn").click(function(){
-        if (gridCount != 0) {
-            $("#data_grid").data('kendoGrid').destroy();
-        }
-        gridCount++;
-        var data = {    
-        };
-
-
-        $("#data_grid").kendoGrid({
-          dataSource:{
-                transport: {
-                    read: {
-                        method: "post",
-                        url: "reqList",
-                        dataType: "json",
-                    }
-                },
-                schema: {
-                    model: {
-                        fields: {
-                            reqID: { type: "int" },
-                            LocName: { type: "string" },
-                            Bname: { type: "string" },
-                            LocFloor: { type: "string" },
-                            reqType: { type: "string" },
-                            reqSpec: { type: "string" },
-                            reqAmount: { type: "int" }
-                            
-                        }
-                    }
-                },
-                pageSize: 20,
-            },
-          height:600,
-          columns:[
-                  {field:"reqID",title:"清單編號",width:"11%"},
-                  {field:"Bname",title:"館別",width:"11%"},
-                  {field:"LocFloor",title:"樓層",width:"11%"},
-                  {field:"Locname",title:"地點名稱",width:"18%"},
-                  {field:"reqType",title:"型號",width:"11%"},
-                  {field:"reqSpec",title:"規格",width:"11%"},
-                  {field:"reqAmount",title:"數量",width:"11%"},
-                  { command: { text: "清除",}, title: " ", width: "5%" },
-
-          ],
-          sortable:true,
-          scrollable: true,
-                        sortable: true,
-                        pageable: {
-                            input: true,
-                            numeric: false
-                        },
-  });
-});
+        } else 
+        return false;
+    }
 </script>
 </html>

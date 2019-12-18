@@ -34,27 +34,16 @@ router.post('/searchByLoc',function(req,res,next){
   var LocID = req.body['LocID'];
   var Bid = req.body['BID'];
   var LocFloor = req.body['LocFloor'];
-  var LocName = req.body['LocName'];
-  console.log(req);
+  //console.log(req);
   console.log("i am SBL");
- 
+ res.json({LocID:LocID,LocName:'703',BName:'本館',LocFloor:LocFloor,})
 });
 
 
-
-//path正確，但會404
-router.post('/reqList',function(req,res,next){
-  //sql query need check!!
-var sql = ""
-conn.query(sql,function(err,rows){
-  res.json(rows);
-})
-console.log("HERE");
+router.post('/DeleteLoc',function(req,res,next){
+  console.log("here is deleteLoc")
 });
 
-
-
- 
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
       if (err) res.send(404);

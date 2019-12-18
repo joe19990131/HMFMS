@@ -90,6 +90,16 @@ router.post('/DeleteObj',function(req,res){
   console.log(oid);
 });
 
+
+
+
+
+
+
+
+
+
+
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
       if (err) res.send(404);

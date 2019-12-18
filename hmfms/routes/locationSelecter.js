@@ -35,6 +35,7 @@ router.post('/searchByLoc',function(req,res,next){
   var Bid = req.body['BID'];
   var LocFloor = req.body['LocFloor'];
   var LocName = req.body['LocName'];
+  console.log(req);
   console.log("i am SBL");
  
 });

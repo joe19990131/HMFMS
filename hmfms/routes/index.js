@@ -22,8 +22,8 @@ router.get('/', function(req, res, next) {
   res.render('index');
 });
 router.get('/locationSelecter', function(req, res, next) {
-  res.redirect(301,'../locationSelecter');
-  //res.render('');
+  //res.redirect(301,'../locationSelecter');
+  res.render('locationSelecter');
 });
 router.get('/newEquitment', function(req, res, next) {
   res.render('newEquitment');

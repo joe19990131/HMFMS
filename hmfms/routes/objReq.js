@@ -14,7 +14,7 @@ var conn = mysql.createConnection({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.redirect('/index');
+  res.redirect(302,'/index');
 });
 router.get('/locationSelecter', function(req, res, next) {
   res.redirect('/locationSelecter');

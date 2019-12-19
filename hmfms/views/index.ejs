@@ -191,7 +191,8 @@ $(document).ready(function(){
 });
 
 //施工中
-
+var nowDate = new Date();
+var nDate = nowDate.toLocaleDateString();
 var gridCount = 0;
 $("#selectByEq_btn").click(function(){
 
@@ -207,7 +208,8 @@ $("#selectByEq_btn").click(function(){
                 "ObjectType" : $("#ot_selecter").val(),
                 "TypeSpec" : $("#ts_selecter").val(),
                 "checkStituation" : $("#cs_selecter").val(),
-                "isNE" : $("#isNE").val()
+                "isNE" : $("#isNE").val(),
+                "nDate":nDate
         };
 
 
@@ -268,15 +270,21 @@ $("#selectByEq_btn").click(function(){
 function deleteEq(e) {
         e.preventDefault();
         var obj = this.dataItem($(e.currentTarget).closest("tr"));
-
-        if (confirm("確定嗎??") == true) {
+        if(obj.checkStituation !="待報廢"){
+                alert("該設備不符合報廢條件");
+        }
+        else if (confirm("確定嗎??") == true) {
             $.ajax({
                 type: "POST",
                 url: "DeleteObj",
                 data: { "OID": obj.OID },
                 dataType: "json",
             }).done(function (e) {
-                if (e == true) $("#data_grid").data("kendoGrid").dataSource.read();
+                
+                if (e == true) {alert("報廢成功");
+                $("#data_grid").data("kendoGrid").params.read();}
+                
+
             })
 
         } else 

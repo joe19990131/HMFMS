@@ -42,6 +42,7 @@ router.post('/searchByEq',function(req, res, next) {
   var ts = req.body['TypeSpec'];
   var cs = req.body['checkStituation'];
   var isNE = req.body['isNE'];
+  var nDate = req.body['nDate']
   console.log("HERE IS SBE");
   console.log(req.body.OID);
   console.log(isNE);
@@ -50,6 +51,34 @@ router.post('/searchByEq',function(req, res, next) {
   console.log(oid+" "+ot+" "+ts+" "+cs+" ");
 
 var sql1 = "select"+
+" oid as OID,"+
+"objtype as ObjectType,"+
+"TypeSpec,"+
+"checkstituation as checkStituation,"+
+"checkDate,"+
+"ManufatureDate,"+
+"EXPdate,"+
+"location_info.LocName as Location,"+
+"(select location_info.LocName "+
+    "from obj_info join location_info "+
+    "on obj_info.MigrateLocID = location_info.LocID "+
+    "where (oid = '"+oid+"' or '' = '"+oid+"')"+
+    "and (objType = '"+ot+"' or '' = '"+ot+"')"+
+    "and (typeSpec = '"+ts+"' or '' = '"+ts+"')"+
+    "and (checkstituation = '"+cs+"' or '' = '"+cs+"')"+
+    ") "+
+    "as MigrateLoc "+
+"from obj_info join location_info "+
+"using(LocID) "+
+"where (oid = '"+oid+"' or '' = '"+oid+"') "+
+  "and (objType = '"+ot+"' or '' = '"+ot+"')"+
+  "and (typeSpec = '"+ts+"' or '' = '"+ts+"')"+
+  "and (checkstituation = '"+cs+"' or '' = '"+cs+"')"+
+"order by OID;";
+
+
+
+var sql2 = "select"+
 " oid as OID,"+
 "objtype as ObjectType,"+
 "TypeSpec,"+
@@ -86,7 +115,8 @@ if(connStatus == 0){
     });
 }
 
-conn.query(sql1,function(err,rows){
+if(isNE == 0){
+  conn.query(sql1,function(err,rows){
     console.log(rows);
     if(err){
       console.log(err);
@@ -95,8 +125,20 @@ conn.query(sql1,function(err,rows){
       //res.end();
     }
   }
-  
   );
+}else{
+  conn.query(sql2,function(err,rows){
+    console.log(rows);
+    if(err){
+      console.log(err);
+    }else{
+      res.json(rows);
+      //res.end();
+    }
+  }
+  );
+  }
+
   console.log(connStatus);
   /*if(connStatus == 1){
   conn.end(function(err){
@@ -111,7 +153,36 @@ conn.query(sql1,function(err,rows){
 
 router.post('/DeleteObj',function(req,res){
   var oid = req.body['OID'];
-  console.log(oid);
+  //console.log(oid);
+var sql = "update obj_info "+
+"set checkStituation = '已報廢'"+
+" where oid = '"+oid+"'";
+
+console.log(connStatus);
+  if(connStatus == 0){
+    conn.connect(function(err){
+      if(err) throw err;
+      console.log('connect success!');
+      connStatus ++;
+      console.log(connStatus);
+      });
+  }
+  conn.query(sql,function(err,rows){
+
+    console.log(connStatus);
+    if(err){
+      console.log(err);
+    }else{
+      res.send(true);
+      //res.end();
+    }
+  }
+  
+  );
+  
+
+
+
 });
 
 

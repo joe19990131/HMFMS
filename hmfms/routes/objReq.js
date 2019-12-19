@@ -30,7 +30,7 @@ router.get('/objReq', function(req, res, next) {
   });
 
 router.post('/ReqList',function(req,res,next){
-console.log("here!!!");
+console.log("here!!! is reqList");
 });
 
   router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {

@@ -49,7 +49,31 @@ router.post('/searchByEq',function(req, res, next) {
   //conn.connect();
   console.log(oid+" "+ot+" "+ts+" "+cs+" ");
 
-var sql1 = "select oid as OID,objtype as ObjectType,TypeSpec,checkstituation as checkStituation,checkDate,ManufatureDate,EXPdate,location_info.LocName as Location,(select location_info.LocName from obj_info join location_info on obj_info.MigrateLocID = location_info.LocID where (oid like '%"+oid+"%')) as MigrateLoc from obj_info join location_info using(LocID) where (oid like '%"+oid+"%') order by OID;";
+var sql1 = "select"+
+" oid as OID,"+
+"objtype as ObjectType,"+
+"TypeSpec,"+
+"checkstituation as checkStituation,"+
+"checkDate,"+
+"ManufatureDate,"+
+"EXPdate,"+
+"location_info.LocName as Location,"+
+"(select location_info.LocName "+
+    "from obj_info join location_info "+
+    "on obj_info.MigrateLocID = location_info.LocID "+
+    "where (oid = '"+oid+"' or '' = '"+oid+"')"+
+    "and (objType = '"+ot+"' or '' = '"+ot+"')"+
+    "and (typeSpec = '"+ts+"' or '' = '"+ts+"')"+
+    "and (checkstituation = '"+cs+"' or '' = '"+cs+"')"+
+    ") "+
+    "as MigrateLoc "+
+"from obj_info join location_info "+
+"using(LocID) "+
+"where (oid = '"+oid+"' or '' = '"+oid+"') "+
+  "and (objType = '"+ot+"' or '' = '"+ot+"')"+
+  "and (typeSpec = '"+ts+"' or '' = '"+ts+"')"+
+  "and (checkstituation = '"+cs+"' or '' = '"+cs+"')"+
+"order by OID;";
 
 
 console.log(connStatus);

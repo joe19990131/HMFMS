@@ -3,7 +3,7 @@ var mysql  = require ('mysql');
 var router = express.Router();
 var bodyParser = require('body-parser');
 var app = express();
-
+var connStatus = 0;
 //sql setting
 var conn = mysql.createConnection({
   host : 'localhost',
@@ -31,12 +31,39 @@ router.get('/objReq', function(req, res, next) {
 });
 
 router.post('/searchByLoc',function(req,res,next){
+ 
   var LocID = req.body['LocID'];
   var Bid = req.body['BID'];
   var LocFloor = req.body['LocFloor'];
+  var isDC = req.body['isDC'];
+  var sql = "select LocID,LocName,building_info.Bname as BName,LocFloor,"+
+            "if(isDC = 0,'正常','廢棄') as isDC "+
+            "from location_info join building_info using(BID) "+
+            "where "+
+            "(locid = '"+LocID+"' or '' = '"+LocID+"') "+
+            "and (bid = '"+Bid+"' or '' = '"+Bid+"') "+
+            "and (locfloor ='"+LocFloor+"' or '' = '"+LocFloor+"') "+
+            "and (isDC = '"+isDC+"' or '' = '"+isDC+"')"
   //console.log(req);
   console.log("i am SBL");
- res.json({LocID:LocID,LocName:'703',BName:'本館',LocFloor:LocFloor,})
+
+  if(connStatus == 0){
+    conn.connect(function(err){
+      if(err) throw err;
+      console.log('connect success!');
+      connStatus ++;
+      console.log(connStatus);
+      });
+  }
+  conn.query(sql,function(err,rows){
+    console.log(rows);
+    if(err){
+      console.log(err);
+    }else{
+      res.json(rows);
+      //res.end();
+    }
+  })
 });
 
 

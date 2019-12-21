@@ -55,9 +55,9 @@ var sql1 = "select"+
 "objtype as ObjectType,"+
 "TypeSpec,"+
 "checkstituation as checkStituation,"+
-"checkDate,"+
-"ManufatureDate,"+
-"EXPdate,"+
+"DATE_FORMAT(CheckDate, '%Y / %m / %d') as CheckDate,"+
+"DATE_FORMAT(ManufatureDate, '%Y / %m / %d') as ManufatureDate,"+
+"DATE_FORMAT(EXPdate, '%Y / %m / %d') as EXPdate,"+
 "location_info.LocName as Location,"+
 "(select location_info.LocName "+
     "from obj_info join location_info "+
@@ -83,9 +83,9 @@ var sql2 = "select"+
 "objtype as ObjectType,"+
 "TypeSpec,"+
 "checkstituation as checkStituation,"+
-"checkDate,"+
-"ManufatureDate,"+
-"EXPdate,"+
+"DATE_FORMAT(CheckDate, '%Y / %m / %d') as CheckDate,"+
+"DATE_FORMAT(ManufatureDate, '%Y / %m / %d') as ManufatureDate,"+
+"DATE_FORMAT(EXPdate, '%Y / %m / %d') as EXPdate,"+
 "location_info.LocName as Location,"+
 "(select location_info.LocName "+
     "from obj_info join location_info "+
@@ -101,7 +101,8 @@ var sql2 = "select"+
 "where (oid = '"+oid+"' or '' = '"+oid+"') "+
   "and (objType = '"+ot+"' or '' = '"+ot+"')"+
   "and (typeSpec = '"+ts+"' or '' = '"+ts+"')"+
-  "and (checkstituation = '"+cs+"' or '' = '"+cs+"')"+
+  "and (checkstituation = '"+cs+"' or '' = '"+cs+"') "+
+  "and (datediff(EXPDATE,'"+nDate+"')<30)"+
 "order by OID;";
 
 

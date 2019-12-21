@@ -128,7 +128,8 @@ $("#selectByLoc_btn").click(function(){
         var params = {
                 "LocID" : $("#locid_inputer").val(),
                 "BID" : $("#bid").val(),
-                "LocFloor" : $("#bfloor").val()
+                "LocFloor" : $("#bfloor").val(),
+                "isDC" : $("#isDiscard").val()
                 
         };
 
@@ -150,7 +151,7 @@ $("#selectByLoc_btn").click(function(){
                             LocName: { type: "string" },
                             BName: { type: "string" },
                             LocFloor: { type: "string" },
-                            
+                            isDC: {type: "string"}
                         }
                     }
                 },
@@ -158,11 +159,12 @@ $("#selectByLoc_btn").click(function(){
             },
           height:600,
           columns:[
-                  {field:"LocID",title:"地點編號",width:"19%"},
-                  {field:"BName",title:"館別",width:"19%"},
-                  {field:"LocFloor",title:"樓層",width:"19%"},
-                  {field:"Locname",title:"地點名稱",width:"19%"},
-                  { command: { text: "廢除",click:deleteLoc}, title: " ", width: "5%" },
+                  {field:"LocID",title:"地點編號",width:"10%"},
+                  {field:"BName",title:"館別",width:"10%"},
+                  {field:"LocFloor",title:"樓層",width:"10%"},
+                  {field:"LocName",title:"地點名稱",width:"25%"},
+                  {field:"isDC",title:"狀態",width:"10%"},
+                  { command: { text: "廢除",click:deleteLoc}, title: " ", width: "10%" },
 
           ],
           sortable:true,

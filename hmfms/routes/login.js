@@ -2,19 +2,27 @@ var express = require('express');
 var mysql  = require ('mysql');
 var router = express.Router();
 var passport = require('passport');
-var bodyParser = require('body-parser');
+var LocalStrtegy = require('passport-local').Strategy;
 var session = require('express-session');
+var bodyParser = require('body-parser');
 var app = express();
- app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
+
+app.use(bodyParser.json({limit: '1mb'}));  //body-parser 解析json格式数据
 app.use(bodyParser.urlencoded({            //此项必须在 bodyParser.json 下面,为参数编码
   extended: true
 }));
 
+
+//Session setting
 app.use(session({ 
-    secret: 'your secret key',
+    secret: 'Nevermind',
     resave: false,
     saveUninitialized: false
   }));
+
+//Launching session 
+app.use(passport.initialize());
+app.use(passport.session());
   
 //sql setting
 var conn = mysql.createConnection({

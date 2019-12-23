@@ -7,6 +7,16 @@ var conn = mysql.createConnection({
     database : 'hmfmsdatabase'
 });
 
+
+exports.connectFunc = mysql.createConnection({
+    host : 'localhost',
+    prot : '3306',
+    user: 'root',
+    password : '123456',
+    database : 'hmfmsdatabase'
+}); 
+
+
 conn.connect(function(err){
     if(err) throw err;
     console.log('Connected!');

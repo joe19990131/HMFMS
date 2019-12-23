@@ -6,6 +6,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var conn = require ('./lib/db');
 
+var Loginverify = require('./routes/login');
 var indexRouter = require('./routes/index');
 var locationSelecterRouter = require('./routes/locationSelecter');
 var newEquitment = require('./routes/newEquitment');
@@ -34,6 +35,11 @@ app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.static(path.join(__dirname, '/kendo')));
 app.use(express.static(path.join(__dirname, '/public/stylesheets')));
 
+//temp direction
+/*
+app.use('/', Loginverify);
+app.use('/index', indexRouter);
+*/
 app.use('/', indexRouter);
 app.use('/locationSelecter', locationSelecterRouter);
 app.use('/newEquitment',newEquitment);

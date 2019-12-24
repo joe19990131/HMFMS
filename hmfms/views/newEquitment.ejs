@@ -89,7 +89,8 @@ $(document).ready(function(){
         $("#type_spec").val("");
     });
 });
-
+var nowDate = new Date();
+var nDate = nowDate.toLocaleDateString();
 
 $("#insert_btn").click(function(){
     var params = {
@@ -97,6 +98,7 @@ $("#insert_btn").click(function(){
             "typeSpec" : $("#type_spec").val(),
             "manufaDate" : $("#manufaDatePicker").val(),
             "EXPdate": $("#expDatePicker").val(),
+            "nDate" : nDate
         };
     $.ajax({
     type:"post",

@@ -34,8 +34,9 @@ router.post('/insert',function(req,res){
   var ts = req.body['typeSpec'];
   var md = req.body['manufaDate'];
   var ed = req.body['EXPdate'];
-  var sql = "insert into obj_info (objtype,typespec,manufatureDate,expdate)"+
-            "value ('"+ot+"','"+ts+"','"+md+"','"+ed+"')";
+  var nd = req.body['nDate'];
+  var sql = "insert into obj_info (objtype,typespec,manufatureDate,expdate,checkdate,locid)"+
+            "value ('"+ot+"','"+ts+"','"+md+"','"+ed+"','"+nd+"',127)";
   //console.log(ot+'  '+ts+'  '+md+'  '+ed);
   if(connStatus == 0){
     conn.connect(function(err){

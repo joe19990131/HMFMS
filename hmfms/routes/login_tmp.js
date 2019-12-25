@@ -1,12 +1,23 @@
 var express = require('express');
 var mysql = require('mysql');
 var router = express.Router();
-var conn = require('/lib/db').connectFunc;
-var bodyParser = require
+var bodyParser = require('body-parser');
 var app = express();
 
 //body-parser bulit-up
-app.use(bodyParser)
+app.use(bodyParser).json({limit: '1mb'});
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+
+//sql connection
+var conn = mysql.createConnection({
+    host: 'localhost',
+    port: '3306',
+    user: 'root',
+    password: '123456',
+    database: 'hmfmsdatabase'
+});
 
 
 //passport setting area

@@ -25,7 +25,6 @@ app.use(passport.initialize());
 app.use(passport.session());
   
 //sql setting
-/*
 var conn = mysql.createConnection({
     host : 'localhost',
     prot : '3306',
@@ -33,7 +32,7 @@ var conn = mysql.createConnection({
     password : '123456',
     database : 'hmfmsdatabase'
   });
-*/  
+  
   
   
   /* GET login page. */

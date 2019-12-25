@@ -21,7 +21,7 @@
         <li><a href="">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
-        
+        <li><a href="/objReq">器材缺乏報表</a></li>
     </ul>
 
 
@@ -77,12 +77,12 @@
         
 </div>
 <hr id="underline" class="style-one" />
-<div id="data_grid" class="col-12" style="margin: 10%;margin-top: 3%;"></div>
+<div id="data_grid" class="col-12" style="margin: 3%;margin-top: 1%;"></div>
 </body>
 <script>
 $(document).ready(function(){
-    //$("#select").hide();
-    //$("#underline").hide();
+    $("#select").hide();
+    $("#underline").hide();
     $("#select_fbtn").click(function(){
             $("#select").toggle(200);
             $("#underline").toggle(200);
@@ -125,9 +125,6 @@ $("#selectByLoc_btn").click(function(){
             $("#data_grid").data('kendoGrid').destroy();
         }
         gridCount++;
-
-        $("#select").toggle(300);
-        $("#underline").toggle(300);
         var params = {
                 "LocID" : $("#locid_inputer").val(),
                 "BID" : $("#bid").val(),
@@ -191,7 +188,7 @@ function deleteLoc(e) {
                 data: { "LocID": loc.LocID },
                 dataType: "json",
             }).done(function (e) {
-                if (e == true) $("#data_grid").data("kendoGrid").params.read();
+                if (e == true) $("#data_grid").data("kendoGrid").dataSource.read();
             })
 
         } else 

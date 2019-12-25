@@ -68,7 +68,27 @@ router.post('/searchByLoc',function(req,res,next){
 
 
 router.post('/DeleteLoc',function(req,res,next){
-  console.log("here is deleteLoc")
+  //console.log("here is deleteLoc");
+  var LocId = req.body['LocID'];
+  var sqlDelete = "update location_info "+
+  "set isdc = 1 "+
+  " where locid = '"+LocId+"'";
+  if(connStatus == 0){
+    conn.connect(function(err){
+      if(err) throw err;
+      console.log('connect success!');
+      connStatus ++;
+      console.log(connStatus);
+      });
+  }
+
+  conn.query(sqlDelete,function(err,rows){
+    if(err){
+      console.log(err);
+    }else{
+      res.send(true);
+    }
+  })
 });
 
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {

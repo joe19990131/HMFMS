@@ -167,7 +167,7 @@ $("#selectByLoc_btn").click(function(){
                   {field:"LocFloor",title:"樓層",width:"10%"},
                   {field:"LocName",title:"地點名稱",width:"25%"},
                   {field:"isDC",title:"狀態",width:"10%"},
-                  { command: { text: "廢除",click:deleteLoc}, title: " ", width: "10%" },
+                  { command: { text: "廢除",click:deleteLoc,className:"distory-btn"}, title: " ", width: "10%" },
 
           ],
           sortable:true,
@@ -198,4 +198,26 @@ function deleteLoc(e) {
         return false;
     }
 </script>
+<style>
+    .distory-btn{
+      background-color: #fc675d;
+      color:white;
+      border: 2px solid #fc675d;
+      border-radius: 5px;
+      float: right;
+      margin-right: 50px;
+    }
+    .distory-btn:hover{
+            background-color: #ce0c0c;
+            color: white;
+            border: 2px solid #ce0c0c;
+            border-radius: 5px;
+    }
+    .distory-btn:visited{
+            background-color: #e91f1f;
+            color:white;
+            border: 2px solid #e91f1f;
+            border-radius: 5px;
+    }
+    </style>
 </html>

@@ -52,7 +52,7 @@
             <div class="form-group row">
                     <label class="col-md-3 control-label" style="margin-bottom: 20px;">樓層</label>
                     <div class="col-md-9">
-                        <input type="text" name="LocID" class="form-control" id="bfloor">
+                        <input type="number" name="LocID" class="form-control" id="bfloor">
                     </div>
             </div>
 
@@ -93,7 +93,7 @@ $(document).ready(function(){
         $("#bfloor").val("");
         $("#isDiscard").val("");
     });
-    $("#locid_inputer").kendoMaskedTextBox();
+    
  /*   var testData = new kendo.data.DataSource({
           data:[{LId:1,ln:"701",h:"總院",b:"本館",f:7},
                 {LId:2,ln:"701-1",h:"總院",b:"本館",f:7}],
@@ -200,12 +200,10 @@ function deleteLoc(e) {
 </script>
 <style>
     .distory-btn{
-      background-color: #fc675d;
-      color:white;
-      border: 2px solid #fc675d;
-      border-radius: 5px;
-      float: right;
-      margin-right: 50px;
+        background-color: #fc675d;
+          color:white;
+          border: 2px solid #fc675d;
+          border-radius: 5px;
     }
     .distory-btn:hover{
             background-color: #ce0c0c;
@@ -213,11 +211,6 @@ function deleteLoc(e) {
             border: 2px solid #ce0c0c;
             border-radius: 5px;
     }
-    .distory-btn:visited{
-            background-color: #e91f1f;
-            color:white;
-            border: 2px solid #e91f1f;
-            border-radius: 5px;
-    }
+    
     </style>
 </html>

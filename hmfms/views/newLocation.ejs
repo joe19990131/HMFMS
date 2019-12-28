@@ -36,7 +36,7 @@
             <label class="col-md-3 control-label">館別</label>
             <div class="col-md-9">
                 <select id="BID" class=" form-control">
-                    <option value="">請選擇</option>
+                    
                     <option value="1">本館</option>
                     <option value="2">第一分館</option>
                     <option value="3">第二分館</option>
@@ -47,8 +47,8 @@
 
             <label class="col-md-3 control-label">樓層</label>
             <div class="col-md-9">
-                <input id="LocFloor" type="text" placeholder="請輸入樓層" style="width: 100%">
-                <p>請輸入數字，不分層請輸入0，地下室請加入負號 例：-1 </p>
+                <input id="LocFloor" type="number" placeholder="請輸入樓層" style="width: 100%">
+                
             </div>
         </div>
 
@@ -74,9 +74,9 @@ $(document).ready(function(){
 
 $("#insert_btn").click(function(){
     var params = {
-           "LocName" : $("#Loc_Name").val(),
+           "LocName" : $("#LocName").val(),
             "BID" : $("#BID").val(),
-            "LocFloor" : $("#Loc_Floor").val()
+            "LocFloor" : $("#LocFloor").val()
         };
     $.ajax({
     type:"post",

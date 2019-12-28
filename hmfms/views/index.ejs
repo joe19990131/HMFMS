@@ -249,7 +249,7 @@ function deleteEq(e) {
             }).done(function (e) {
                 
                 if (e == true) {alert("報廢成功");
-                $("#data_grid").data("kendoGrid").params.read();}
+                $("#data_grid").data("kendoGrid").dataSource.read();}
                 
 
             })

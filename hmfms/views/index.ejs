@@ -22,7 +22,7 @@
         <li><a href="/locationSelecter">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
-        <li><a href="/objReq">器材缺乏報表</a></li>
+        
     </ul>
     <div id="mainSelect_fbtn" class="main_fbtn" style="border-bottom: 2px solid rgb(65, 65, 65); background-color: rgb(49, 47, 47);">
       <h4 class="main_func_text">搜尋</h4>
@@ -114,15 +114,15 @@
               </div>
         
 
-              <div style="background-color: rgb(49, 47, 47);height: 5px;"></div>
+              <hr id="underline" class="style-one" />
       </div>
       <h3 style="margin-left: 8%;margin-top: 2%;margin-bottom: 1%;" id="title_bar">設備清單</h3>       
       <div id="data_grid" class="col-12" style="margin: 2%;margin-top: 0%;"></div>     
   </body>
 <script>
 $(document).ready(function(){
-  $("#select_area").hide();
-  $(".hide_selecter").hide();
+  //$("#select_area").hide();
+  //$(".hide_selecter").hide();
   $("#title_bar").hide();
   $("#oid_inputer").val("");
         $("#ot_selecter").val("");
@@ -218,7 +218,7 @@ $("#selectByEq_btn").click(function(){
                   {field:"EXPdate",title:"有效期限",width:"14%"},
                   {field:"Location",title:"放置位置",width:"15%"},
                   {field:"MigrateLoc",title:"異動位置",width:"15%"},
-                  { command: { text: "報廢",click:deleteEq}, title: " ", width: "8%" },
+                  { command: { text: "報廢",click:deleteEq,className:"distory-btn"}, title: " ", width: "8%" },
 
           ],
           sortable:true,
@@ -259,4 +259,24 @@ function deleteEq(e) {
     }
 
 </script>
+<style>
+        .distory-btn{
+          background-color: #fc675d;
+          color:white;
+          border: 2px solid #fc675d;
+          border-radius: 5px;
+        }
+        .distory-btn:hover{
+                background-color: #ce0c0c;
+                color: white;
+                border: 2px solid #ce0c0c;
+                border-radius: 5px;
+        }
+        .distory-btn:visited{
+                background-color: #e91f1f;
+                color:white;
+                border: 2px solid #e91f1f;
+                border-radius: 5px;
+        }
+        </style>
 </html>

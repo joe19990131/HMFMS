@@ -21,7 +21,7 @@
         <li><a href="">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
-        <li><a href="/objReq">器材缺乏報表</a></li>
+        
     </ul>
 
 
@@ -77,12 +77,12 @@
         
 </div>
 <hr id="underline" class="style-one" />
-<div id="data_grid" class="col-12" style="margin: 3%;margin-top: 1%;"></div>
+<div id="data_grid" class="col-12" style="margin: 10%;margin-top: 3%;"></div>
 </body>
 <script>
 $(document).ready(function(){
-    $("#select").hide();
-    $("#underline").hide();
+    //$("#select").hide();
+    //$("#underline").hide();
     $("#select_fbtn").click(function(){
             $("#select").toggle(200);
             $("#underline").toggle(200);
@@ -125,6 +125,9 @@ $("#selectByLoc_btn").click(function(){
             $("#data_grid").data('kendoGrid').destroy();
         }
         gridCount++;
+
+        $("#select").toggle(300);
+        $("#underline").toggle(300);
         var params = {
                 "LocID" : $("#locid_inputer").val(),
                 "BID" : $("#bid").val(),
@@ -164,7 +167,7 @@ $("#selectByLoc_btn").click(function(){
                   {field:"LocFloor",title:"樓層",width:"10%"},
                   {field:"LocName",title:"地點名稱",width:"25%"},
                   {field:"isDC",title:"狀態",width:"10%"},
-                  { command: { text: "廢除",click:deleteLoc}, title: " ", width: "10%" },
+                  { command: { text: "廢除",click:deleteLoc,className:"distory-btn"}, title: " ", width: "10%" },
 
           ],
           sortable:true,
@@ -188,11 +191,33 @@ function deleteLoc(e) {
                 data: { "LocID": loc.LocID },
                 dataType: "json",
             }).done(function (e) {
-                if (e == true) $("#data_grid").data("kendoGrid").dataSource.read();
+                if (e == true) $("#data_grid").data("kendoGrid").params.read();
             })
 
         } else 
         return false;
     }
 </script>
+<style>
+    .distory-btn{
+      background-color: #fc675d;
+      color:white;
+      border: 2px solid #fc675d;
+      border-radius: 5px;
+      float: right;
+      margin-right: 50px;
+    }
+    .distory-btn:hover{
+            background-color: #ce0c0c;
+            color: white;
+            border: 2px solid #ce0c0c;
+            border-radius: 5px;
+    }
+    .distory-btn:visited{
+            background-color: #e91f1f;
+            color:white;
+            border: 2px solid #e91f1f;
+            border-radius: 5px;
+    }
+    </style>
 </html>

@@ -1,12 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>施工中</h1>
+    <link rel="stylesheet" href="stylesheets/newEquitment.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="/kendo/css/kendo.common-material.min.css">
+    <link rel="stylesheet" href="/kendo/css/kendo.material.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+    <script src="/kendo/js/kendo.all.min.js"></script>
+    <title>HMFMSystem</title>
+  </head>
+  <body>
+
+    <img src = "images/homeTitlePicture.jpg" id="homeTitlePicture">
+    <ul>
+        <li><a class="active" href="#home">HMFMSystem</a></li>
+        <li><a href="/">設備查詢</a></li>
+        <li><a href="/locationSelecter">地點查詢</a></li>
+        <li><a href="/newEquitment">新增設備</a></li>
+        <li><a href="">新增地點</a></li>
+        
+    </ul>
+    <h2 style="margin-left: 20px;">新增地點</h2>
+<div id="form-div">
+        <div class="form-group row" style="margin-bottom:20px">
+            <label class="col-md-3 control-label">地點</label>
+            <div class="col-md-9">
+                <input id="LocName" type="text" placeholder="請輸入地點名稱" style="width: 100%">
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom:20px">
+            <label class="col-md-3 control-label">館別</label>
+            <div class="col-md-9">
+                <select id="BID" class=" form-control">
+                    
+                    <option value="1">本館</option>
+                    <option value="2">第一分館</option>
+                    <option value="3">第二分館</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group row" style="margin-bottom:20px">
+
+            <label class="col-md-3 control-label">樓層</label>
+            <div class="col-md-9">
+                <input id="LocFloor" type="number" placeholder="請輸入樓層" style="width: 100%">
+                
+            </div>
+        </div>
+
+        
+        <div class="form-btn">
+            <button class="btn btn-primary" id="insert_btn" style="float: right;margin-left: 5px;">新增</button>
+            <button class="btn btn-danger" id="clean_btn" style="float: right;">清除</button>
+            
+        </div>
+    
+    
+</div>
 </body>
+<script>
+$(document).ready(function(){
+    $("#clean_btn").click(function(){
+        $("#LocName").val("");
+        $("#BID").val("");
+        $("#LocFloor").val("");
+    });
+});
+
+
+$("#insert_btn").click(function(){
+    var params = {
+           "LocName" : $("#LocName").val(),
+            "BID" : $("#BID").val(),
+            "LocFloor" : $("#LocFloor").val()
+        };
+    $.ajax({
+    type:"post",
+    url:"newLocation/insert",
+    dataType:"json",
+    data: params
+}).done(function(e){
+    if(e == true){
+        alert("新增成功");
+    }
+})
+}
+    
+);
+
+</script>
 </html>

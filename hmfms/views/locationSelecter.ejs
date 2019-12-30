@@ -191,7 +191,7 @@ function deleteLoc(e) {
                 data: { "LocID": loc.LocID },
                 dataType: "json",
             }).done(function (e) {
-                if (e == true) $("#data_grid").data("kendoGrid").params.read();
+                if (e == true) $("#data_grid").data("kendoGrid").dataSource.read();
             })
 
         } else 

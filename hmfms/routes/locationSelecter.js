@@ -77,16 +77,14 @@ router.post('/DeleteLoc',function(req,res,next){
       console.log(connStatus);
       });
   }
-  var locID = req['LocID'];
-  var sql = "update location_info "+
-  "set isdc = 1"+
-  " where locID = '"+locID+"'";
+  var locID = req.body['LocID'];
+  var sql = "update location_info set isdc = 1 where locID = '"+locID+"'";
   conn.query(sql,function(err,rows){
     console.log(rows);
     if(err){
       console.log(err);
     }else{
-      res.json(rows);
+      res.send(true);
       //res.end();
     }
   })

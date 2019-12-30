@@ -100,8 +100,8 @@ router.post('/objList',function(req,res,next){
       });
   }
   var locid = req.body['LocId'];
-  var sql = "select oid as OID,objtype as ObjectType,TypeSpec,DATE_FORMAT(CheckDate, '%Y / %m / %d') as CheckDate"+
-  "from obj_info where locid = '"+locid+"'";
+  var sql = "select oid as OID,objtype as ObjectType,TypeSpec,DATE_FORMAT(CheckDate, '%Y / %m / %d') as CheckDate,checkStituation"+
+  " from obj_info where locid = "+locid;
 
   conn.query(sql,function(err,rows){
     console.log(rows);

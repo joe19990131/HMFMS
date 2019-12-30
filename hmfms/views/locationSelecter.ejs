@@ -78,6 +78,9 @@
 </div>
 <hr id="underline" class="style-one" />
 <div id="data_grid" class="col-12" style="margin: 10%;margin-top: 3%;"></div>
+<div class="uk-card  uk-text-left" id="objList_window" style="display:none">
+    <div id="record_grid"></div>
+</div>
 </body>
 <script>
 $(document).ready(function(){
@@ -209,7 +212,7 @@ function deleteLoc(e) {
 
 function objList(e){
     e.preventDefault();
-        var loc = this.dataItem($(e.currentTarget).closest("tr")).LocId;
+        var loc = this.dataItem($(e.currentTarget).closest("tr"));
         $("#record_grid").kendoGrid({
             dataSource: {
                 transport: {
@@ -217,7 +220,7 @@ function objList(e){
                         method: "post",
                         url: "locationSelecter/objList",
                         dataType: "json",
-                        data: { "LocId": loc }
+                        data: { "LocId": loc.LocID}
                     }
                 },
                 schema: {
@@ -243,8 +246,8 @@ function objList(e){
                 { field: "OID", title: "編號", width: "10%" },
                 { field: "ObjectType", title: "型號", width: "20%" },
                 { field: "TypeSpec", title: "規格", width: "20%" },
-                { field: "CheckDate", title: "檢查日期", width: "15%" },
-                { field: "checkStituation", title: "狀態", width: "25%" }
+                { field: "CheckDate", title: "檢查日期", width: "20%" },
+                { field: "checkStituation", title: "狀態", width: "20%" }
             ]
 
         });

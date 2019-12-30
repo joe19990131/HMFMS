@@ -92,6 +92,30 @@ router.post('/DeleteLoc',function(req,res,next){
   })
 });
 
+router.post('/objList',function(req,res,next){
+  if(connStatus == 0){
+    conn.connect(function(err){
+      if(err) throw err;
+      console.log('connect success!');
+      connStatus ++;
+      console.log(connStatus);
+      });
+  }
+  var locid = req.body['LocId'];
+  var sql = "select oid as OID,objtype as ObjectType,TypeSpec,DATE_FORMAT(CheckDate, '%Y / %m / %d') as CheckDate"+
+  "from obj_info where locid = '"+locid+"'";
+
+  conn.query(sql,function(err,rows){
+    console.log(rows);
+    if(err){
+      console.log(err);
+    }else{
+      res.json(rows);
+      //res.end();
+    }
+  })
+});
+
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
       if (err) res.send(404);

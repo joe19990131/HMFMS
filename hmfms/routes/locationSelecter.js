@@ -114,6 +114,44 @@ router.post('/objList',function(req,res,next){
   })
 });
 
+
+router.post('/searchByLocERR',function(req,res,next){
+ 
+  var LocID = req.body['LocID'];
+  var Bid = req.body['BID'];
+  var LocFloor = req.body['LocFloor'];
+  var isDC = req.body['isDC'];
+  var sql = "select distinct LocID,LocName,building_info.Bname as BName,LocFloor,"+
+            "if(isDC = 0,'正常','廢棄') as isDC "+
+            "from location_info join building_info using(BID) left join obj_info using(locid) "+
+            "where "+
+            "(locid = '"+LocID+"' or '' = '"+LocID+"') "+
+            "and (bid = '"+Bid+"' or '' = '"+Bid+"') "+
+            "and (locfloor ='"+LocFloor+"' or '' = '"+LocFloor+"') "+
+            "and (isDC = '"+isDC+"' or '' = '"+isDC+"')"+
+            "and (obj_info.checkStituation = '遺失' or obj_info.checkStituation = '即期收回')";
+  //console.log(req);
+  console.log("i am SBL");
+
+  if(connStatus == 0){
+    conn.connect(function(err){
+      if(err) throw err;
+      console.log('connect success!');
+      connStatus ++;
+      console.log(connStatus);
+      });
+  }
+  conn.query(sql,function(err,rows){
+    console.log(rows);
+    if(err){
+      console.log(err);
+    }else{
+      res.json(rows);
+      //res.end();
+    }
+  })
+});
+
 router.get(/(.*)\.(jpg|gif|png|ico|css|js|txt|svg|ttf|eot|woff)/i, function(req, res) {
   res.sendfile(__dirname + "/" + req.params[0] + "." + req.params[1], function(err) {
       if (err) res.send(404);

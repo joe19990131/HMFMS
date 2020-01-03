@@ -122,13 +122,13 @@ router.post('/searchByLocERR',function(req,res,next){
   var LocFloor = req.body['LocFloor'];
   var isDC = req.body['isDC'];
   var sql = "select distinct LocID,LocName,building_info.Bname as BName,LocFloor,"+
-            "if(isDC = 0,'正常','廢棄') as isDC "+
+            "if(location_info.isDC = 0,'正常','廢棄') as isDC "+
             "from location_info join building_info using(BID) left join obj_info using(locid) "+
             "where "+
             "(locid = '"+LocID+"' or '' = '"+LocID+"') "+
             "and (bid = '"+Bid+"' or '' = '"+Bid+"') "+
             "and (locfloor ='"+LocFloor+"' or '' = '"+LocFloor+"') "+
-            "and (isDC = '"+isDC+"' or '' = '"+isDC+"')"+
+            "and (Location_info.isDC = '"+isDC+"' or '' = '"+isDC+"')"+
             "and (obj_info.checkStituation = '遺失' or obj_info.checkStituation = '即期收回')";
   //console.log(req);
   console.log("i am SBL");

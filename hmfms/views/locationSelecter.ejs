@@ -200,7 +200,7 @@ $("#selectByLocERR_btn").click(function(){
 
         $("#select").toggle(300);
         $("#underline").toggle(300);
-        var params = {
+        var params2 = {
                 "LocID" : $("#locid_inputer").val(),
                 "BID" : $("#bid").val(),
                 "LocFloor" : $("#bfloor").val(),
@@ -216,7 +216,7 @@ $("#selectByLocERR_btn").click(function(){
                         method: "post",
                         url: "locationSelecter/searchByLocERR",
                         dataType: "json",
-                        data: params
+                        data: params2
                     }
                 },
                 schema: {

@@ -11,6 +11,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <script src="/kendo/js/kendo.all.min.js"></script>
+    <script src="/jquery-qrcode-0.17.0/jquery-qrcode-0.17.0.js"></script>
+    <script src="/jquery-qrcode-0.17.0/jquery-qrcode-0.17.0.min.js"></script>
     <title>HMFMSystem</title>
   </head>
   <body>
@@ -81,6 +83,9 @@
 <div class="uk-card  uk-text-left" id="objList_window" style="display:none">
     <div id="record_grid"></div>
 </div>
+<div class="uk-card  uk-text-left" id="objQRC_window" style="display:none">
+    <div id="qrcode" style="float: initial;"></div>
+</div>
 </body>
 <script>
 $(document).ready(function(){
@@ -123,7 +128,15 @@ $(document).ready(function(){
 
   $("#objList_window").kendoWindow({
             title: "設備清單",
-            width: "50%",
+            width: "70%",
+            visible: false,
+            modal: true,
+            action: ["Close"]
+        });
+        
+  $("#objQRC_window").kendoWindow({
+            title: "QR CODE",
+            width: "25%",
             visible: false,
             modal: true,
             action: ["Close"]
@@ -304,17 +317,33 @@ function objList(e){
                 numeric: false
             },
             columns: [
-                { field: "OID", title: "編號", width: "10%" },
-                { field: "ObjectType", title: "型號", width: "20%" },
-                { field: "TypeSpec", title: "規格", width: "20%" },
+                { field: "OID", title: "編號", width: "5%" },
+                { field: "ObjectType", title: "型號", width: "10%" },
+                { field: "TypeSpec", title: "規格", width: "10%" },
                 { field: "CheckDate", title: "檢查日期", width: "20%" },
-                { field: "checkStituation", title: "狀態", width: "20%" }
+                { field: "checkStituation", title: "狀態", width: "10%" },
+                { command: { text: "qrcode",click:objqrcode}, title: " ", width: "20%" }
             ]
 
         });
 
         $('#objList_window').data("kendoWindow").center().open();
 }
+function objqrcode(e){
+    e.preventDefault();
+    alert("work");
+    console.log('it work');
+    var eqp = this.dataItem($(e.currentTarget).closest("tr"));
+    alert(eqp.OID);
+    var qroid = "'"+eqp.OID+"'";
+    $("#qrcode").qrcode({
+        render: 'canvas',
+        size:250,
+        text:qroid
+
+    });
+    $("#objQRC_window").data("kendoWindow").center().open();
+    }
 </script>
 <style>
     .distory-btn{

@@ -11,14 +11,15 @@
     <script src="/jquery/jquery-2.1.4.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
     <script src="/kendo/js/kendo.all.min.js"></script>
-    
+    <script src="/jquery-qrcode-0.17.0/jquery-qrcode-0.17.0.js"></script>
+    <script src="/jquery-qrcode-0.17.0/jquery-qrcode-0.17.0.min.js"></script>
     <title>HMFMSystem</title>
   </head>
   <body>
     <img src = "images/homeTitlePicture.jpg" id="homeTitlePicture">
     <ul style="margin-bottom: 1px;">
         <li><a class="active" href="#home">HMFMSystem</a></li>
-        <li><a href="">設備查詢</a></li>
+        <li style="background-color: #111;"><a href="">設備查詢</a></li>
         <li><a href="/locationSelecter">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
@@ -115,11 +116,14 @@
         
 
               <hr id="underline" class="style-one" />
-      </div>
-      <h3 style="margin-left: 2%;margin-top: 2%;margin-bottom: 1%;" id="title_bar">設備清單</h3>       
-      <div id="data_grid" class="col-12" style="margin: 2%;margin-top: 0%;"></div>     
+      </div>       
+      <div id="data_grid" class="col-12" style="margin: 2%;margin-top: 2%;"></div>
+      <div class="uk-card  uk-text-left" id="objQRC_window" style="display:none">
+        <div id="qrcode" style="float: initial;"></div>
+    </div>     
   </body>
 <script>
+
 $(document).ready(function(){
   //$("#select_area").hide();
   //$(".hide_selecter").hide();
@@ -154,7 +158,13 @@ $(document).ready(function(){
         $("#cs_selecter").val("");
         $("#isNE").val("");
   })
- 
+  $("#objQRC_window").kendoWindow({
+            title: "QR CODE",
+            width: "15%",
+            visible: false,
+            modal: true,
+            action: ["Close"]
+        });
 });
 
 //施工中
@@ -218,6 +228,7 @@ $("#selectByEq_btn").click(function(){
                   {field:"EXPdate",title:"有效期限",width:"14%"},
                   {field:"Location",title:"放置位置",width:"15%"},
                   {field:"MigrateLoc",title:"異動位置",width:"15%"},
+                  { command: { text: "qrcode",click:objqrcode}, title: " ", width: "8%" },
                   { command: { text: "報廢",click:deleteEq,className:"distory-btn"}, title: " ", width: "8%" },
 
           ],
@@ -231,8 +242,23 @@ $("#selectByEq_btn").click(function(){
   });
 });
 
+function objqrcode(e){
+    e.preventDefault();
+    
+    //alert("work");
+    console.log('it work');
+    var eqp = this.dataItem($(e.currentTarget).closest("tr"));
+    //alert(eqp.OID);
+    var qroid = "'"+eqp.OID+"'";
 
+    $("#qrcode").html("").qrcode({
+        render: 'canvas',
+        size:250,
+        text:qroid
 
+    });
+    $("#objQRC_window").data("kendoWindow").center().open();
+    }
 
 function deleteEq(e) {
         e.preventDefault();

@@ -20,7 +20,7 @@
     <ul style="margin-bottom: 1px;">
         <li><a class="active" href="#home">HMFMSystem</a></li>
         <li><a href="/">設備查詢</a></li>
-        <li style="background-color: #111;"><a href="">地點查詢</a></li>
+        <li><a href="">地點查詢</a></li>
         <li><a href="/newEquitment">新增設備</a></li>
         <li><a href="/newLocation">新增地點</a></li>
         
@@ -79,7 +79,7 @@
         
 </div>
 <hr id="underline" class="style-one" />
-<div id="data_grid" class="col-12" style="margin: 10%;margin-top: 2%;"></div>
+<div id="data_grid" class="col-12" style="margin: 10%;margin-top: 3%;"></div>
 <div class="uk-card  uk-text-left" id="objList_window" style="display:none">
     <div id="record_grid"></div>
 </div>
@@ -128,7 +128,7 @@ $(document).ready(function(){
 
   $("#objList_window").kendoWindow({
             title: "設備清單",
-            width: "60%",
+            width: "70%",
             visible: false,
             modal: true,
             action: ["Close"]
@@ -136,7 +136,7 @@ $(document).ready(function(){
         
   $("#objQRC_window").kendoWindow({
             title: "QR CODE",
-            width: "15%",
+            width: "25%",
             visible: false,
             modal: true,
             action: ["Close"]
@@ -331,12 +331,12 @@ function objList(e){
 }
 function objqrcode(e){
     e.preventDefault();
-    //alert("work");
+    alert("work");
     console.log('it work');
     var eqp = this.dataItem($(e.currentTarget).closest("tr"));
-    //alert(eqp.OID);
+    alert(eqp.OID);
     var qroid = "'"+eqp.OID+"'";
-    $("#qrcode").html("").qrcode({
+    $("#qrcode").qrcode({
         render: 'canvas',
         size:250,
         text:qroid

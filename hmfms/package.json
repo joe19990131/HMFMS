@@ -14,7 +14,7 @@
     "express-session": "^1.17.0",
     "http-errors": "~1.6.3",
     "jquery": "^3.4.1",
-    "jszip": "^3.2.2",
+    "jszip": "^3.7.0",
     "koa": "^2.11.0",
     "koa-router": "^8.0.8",
     "morgan": "~1.9.1",
